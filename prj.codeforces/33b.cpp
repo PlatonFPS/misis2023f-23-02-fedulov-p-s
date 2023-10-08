@@ -5,14 +5,17 @@
 
 const int kAlphabetLenhgt = 26;
 
-void InitializeGraph(std::vector<std::vector<int>>& graph,
-  std::vector<bool>& busy)
-{
+void InitializeGraph(std::vector<std::vector<int>>& graph) {
   for (int i_row = 0; i_row < graph.size(); i_row += 1) {
-    busy[i_row] = false;
     for (int i_col = 0; i_col < graph[i_row].size(); i_col += 1) {
       graph[i_row][i_col] = -1;
     }
+  }
+}
+
+void ClearBusy(std::vector<bool>& busy) {
+  for (int i_row = 0; i_row < busy.size(); i_row += 1) {
+    busy[i_row] = false;
   }
 }
 
@@ -27,6 +30,10 @@ void FindShortestPath(std::map<int, int>& final_queue,
     int cost = -letter.first;
     int letter_1 = letter.second;
     temp_queue.pop();
+    if (busy[letter_1]) {
+      continue;
+    }
+    busy[letter_1] = true;
     if (final_queue.find(letter_1) != final_queue.end()) {
       if (final_queue[letter_1] < cost) {
         cost = final_queue[letter_1];
@@ -42,6 +49,13 @@ void FindShortestPath(std::map<int, int>& final_queue,
   return;
 }
 
+int FindShortestPathBeetwenLetters(int& letter_1, int& letter_2,
+  std::vector<std::vector<int>>& graph,
+  std::vector<bool>& busy) {
+
+  return -1;
+}
+
 int main() {
   std::string word_1 = "";
   std::string word_2 = "";
@@ -50,7 +64,8 @@ int main() {
   std::cin >> n_swap;
   std::vector<std::vector<int>> swaps(kAlphabetLenhgt, std::vector<int>(kAlphabetLenhgt));
   std::vector<bool> busy(kAlphabetLenhgt);
-  InitializeGraph(swaps, busy);
+  InitializeGraph(swaps);
+  ClearBusy(busy);
   for (int i_swap = 0; i_swap < n_swap; i_swap += 1) {
     char letter_a = ' ';
     char letter_b = ' ';
@@ -94,8 +109,18 @@ int main() {
     if (letter_1 == letter_2) {
       continue;
     }
+    int current_cost = FindShortestPathBeetwenLetters(letter_1, letter_2, swaps, busy);
+    if (current_cost == -1) {
+      impossible = true;
+      break;
+    }
+    overall_cost += current_cost;
+    word_1[i_letter] = static_cast<char>(letter_1 + 'a');
+    word_2[i_letter] = static_cast<char>(letter_2 + 'a');
+
     std::map<int, int> shortest_path_from_1;
     FindShortestPath(shortest_path_from_1, swaps, busy, letter_1);
+    ClearBusy(busy);
     std::cout << static_cast<char>(letter_1 + 'a') << '\n';
     for (std::pair<int, int> it : shortest_path_from_1) {
       std::cout << static_cast<char>(it.first + 'a') << " - " << it.second << '\n';
