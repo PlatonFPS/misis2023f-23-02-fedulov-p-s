@@ -14,8 +14,7 @@ void InitializeGraph(std::vector<std::vector<int>>& graph) {
 }
 
 int FindShortestPathBeetwenLetters(int& letter_1, const int& letter_2,
-  std::vector<std::vector<int>>& graph) {
-  //std::cout << "  " << letter_2 << '\n';
+                                   std::vector<std::vector<int>>& graph) {
   std::vector<int> paths_1(kAlphabetLenhgt, -1);
   std::vector<int> paths_2(kAlphabetLenhgt, -1);
   std::priority_queue<std::pair<int, int>> queue_1;
@@ -103,38 +102,11 @@ int main() {
     std::cout << "-1\n";
     return 0;
   }
-  /*
-  std::cout << "* ";
-  for (char c = 'a'; c <= 'z'; c += 1) {
-    std::cout << c << ' ';
-  }
-  std::cout << '\n';
-  for (int i_letter_1 = 0; i_letter_1 < kAlphabetLenhgt; i_letter_1 += 1) {
-    std::cout << static_cast<char>(i_letter_1 + 'a') << ' ';
-    for (int i_letter_2 = 0; i_letter_2 < kAlphabetLenhgt; i_letter_2 += 1) {
-      if (swaps[i_letter_1][i_letter_2] == -1) {
-        std::cout << ". ";
-      }
-      else {
-        std::cout << swaps[i_letter_1][i_letter_2] << ' ';
-      }
-    }
-    std::cout << '\n';
-  }
-  std::cout << '\n';
-  if (word_1.size() != word_2.size()) {
-    std::cout << "-1\n";
-    return 0;
-  }
-  */
   int overall_cost = 0;
   bool impossible = false;
   for (int i_letter = 0; i_letter < word_1.size(); i_letter += 1) {
     int letter_1 = (word_1[i_letter] - 'a');
     int letter_2 = (word_2[i_letter] - 'a');
-    //std::cout << word_2[i_letter] << '\n';
-    //std::cout << static_cast<char>(letter_1 + 'a') << " - ";
-    //std::cout << " " << letter_2 << '\n';
     int current_cost = FindShortestPathBeetwenLetters(letter_1, letter_2, swaps);
     if (current_cost == -1) {
       impossible = true;
@@ -142,7 +114,6 @@ int main() {
     }
     overall_cost += current_cost;
     word_1[i_letter] = static_cast<char>(letter_1 + 'a');
-    //std::cout << current_cost << " - " << static_cast<char>(letter_1 + 'a') << '\n';
   }
   if (impossible) {
     std::cout << "-1\n";
