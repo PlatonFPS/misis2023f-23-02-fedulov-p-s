@@ -13,36 +13,6 @@ void InitializeGraph(std::vector<std::vector<int>>& graph) {
   }
 }
 
-void FindShortestPath(std::map<int, int>& final_queue,
-  std::vector<std::vector<int>>& graph,
-  std::vector<bool>& busy,
-  const int& start_letter) {
-  std::priority_queue<std::pair<int, int>> temp_queue;
-  temp_queue.push({ 0, start_letter });
-  while (!temp_queue.empty()) {
-    std::pair<int, int> letter = temp_queue.top();
-    int cost = -letter.first;
-    int letter_1 = letter.second;
-    temp_queue.pop();
-    if (busy[letter_1]) {
-      continue;
-    }
-    busy[letter_1] = true;
-    if (final_queue.find(letter_1) != final_queue.end()) {
-      if (final_queue[letter_1] < cost) {
-        cost = final_queue[letter_1];
-      }
-    }
-    final_queue[letter_1] = cost;
-    for (int letter_2 = 0; letter_2 < kAlphabetLenhgt; letter_2 += 1) {
-      if (graph[letter_1][letter_2] != -1) {
-        temp_queue.push({ -graph[letter_1][letter_2] - cost, letter_2 });
-      }
-    }
-  }
-  return;
-}
-
 int FindShortestPathBeetwenLetters(int& letter_1, const int& letter_2,
   std::vector<std::vector<int>>& graph) {
   std::vector<int> paths_1(kAlphabetLenhgt, -1);
@@ -51,6 +21,7 @@ int FindShortestPathBeetwenLetters(int& letter_1, const int& letter_2,
   queue_1.push({ 0, letter_1 });
   std::priority_queue<std::pair<int, int>> queue_2;
   queue_2.push({ 0, letter_2 });
+  int min_cost = -1;
   while (!queue_1.empty() || !queue_2.empty()) {
     int temp_letter_1 = -1;
     if (!queue_1.empty()) {
@@ -84,13 +55,12 @@ int FindShortestPathBeetwenLetters(int& letter_1, const int& letter_2,
         }
       }
     }
-    int min_cost = -1;
     if (temp_letter_1 != -1) {
       if (paths_2[temp_letter_1] != -1) {
         int cost = paths_1[temp_letter_1] + paths_2[temp_letter_1];
         if (cost < min_cost || min_cost == -1) {
           min_cost = cost;
-          letter_1 == temp_letter_1;
+          letter_1 = temp_letter_1;
         }
       }
     }
@@ -99,15 +69,12 @@ int FindShortestPathBeetwenLetters(int& letter_1, const int& letter_2,
         int cost = paths_2[temp_letter_2] + paths_1[temp_letter_2];
         if (cost < min_cost || min_cost == -1) {
           min_cost = cost;
-          letter_1 == temp_letter_2;
+          letter_1 = temp_letter_2;
         }
       }
     }
-    if (min_cost != -1) {
-      return min_cost;
-    }
   }
-  return -1;
+  return min_cost;
 }
 
 int main() {
@@ -131,6 +98,7 @@ int main() {
     }
     swaps[letter_a - 'a'][letter_b - 'a'] = cost;
   }
+  /*
   std::cout << "* ";
   for (char c = 'a'; c <= 'z'; c += 1) {
     std::cout << c << ' ';
@@ -153,11 +121,13 @@ int main() {
     std::cout << "-1\n";
     return 0;
   }
+  */
   int overall_cost = 0;
   bool impossible = false;
   for (int i_letter = 0; i_letter < word_1.size(); i_letter += 1) {
     int letter_1 = (word_1[i_letter] - 'a');
     int letter_2 = (word_2[i_letter] - 'a');
+    //std::cout << static_cast<char>(letter_1 + 'a') << " - ";
     int current_cost = FindShortestPathBeetwenLetters(letter_1, letter_2, swaps);
     if (current_cost == -1) {
       impossible = true;
@@ -165,15 +135,7 @@ int main() {
     }
     overall_cost += current_cost;
     word_1[i_letter] = static_cast<char>(letter_1 + 'a');
-
-    /*std::map<int, int> shortest_path_from_1;
-    FindShortestPath(shortest_path_from_1, swaps, busy, letter_1);
-    ClearBusy(busy);
-    std::cout << static_cast<char>(letter_1 + 'a') << '\n';
-    for (std::pair<int, int> it : shortest_path_from_1) {
-      std::cout << static_cast<char>(it.first + 'a') << " - " << it.second << '\n';
-    }
-    std::cout << "\n\n\n";*/
+    //std::cout << current_cost << " - " << static_cast<char>(letter_1 + 'a') << '\n';
   }
   if (impossible) {
     std::cout << "-1\n";
