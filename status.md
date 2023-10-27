@@ -1,4 +1,4 @@
 OK: file codeforces.id is correct
-ERROR: invalid file name 0339B
+OK: folder prj.codeforces structure is correct
 OK: CMake generator successed
 OK: CMake build (MSVC x64) successed
