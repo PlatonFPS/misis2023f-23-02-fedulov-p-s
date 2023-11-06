@@ -107,6 +107,7 @@ void DivisionTest(const Complex& z, const Complex& y, Complex& x) {
   x /= 3;
   std::cout << z << " /= " << 3 << " -> " << x << '\n';
   std::cout << 3 << " / " << z << " = " << (3 / z) << '\n';
+  std::cout << z << " / " << y << " * " << y << " = " << ((z / y) * y) << '\n';
   std::cout << '\n';
 }
 
