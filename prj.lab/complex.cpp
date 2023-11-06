@@ -12,7 +12,7 @@ struct Complex {
   Complex& operator+=(const Complex& rhs);
   Complex& operator-=(const Complex& rhs);
   Complex& operator*=(const Complex& rhs);
-  std::ostream& WriteToStream(std::ostream& ostrm);
+  std::ostream& WriteToStream(std::ostream& ostrm) const;
   std::istream& ReadFromStream(std::istream& istrm);
 };
 
@@ -20,20 +20,28 @@ Complex operator+(const Complex& lhs, const Complex& rhs);
 Complex operator-(const Complex& lhs, const Complex& rhs);
 Complex operator*(const Complex& lhs, const Complex& rhs);
 
-std::istream& operator>>(std::istream& istrm, Complex& rhs) {
+inline std::istream& operator>>(std::istream& istrm, Complex& rhs) {
   return rhs.ReadFromStream(istrm);
 }
 
-std::ostream& operator<<(std::ostream& ostrm, Complex& rhs) {
+inline std::ostream& operator<<(std::ostream& ostrm, const Complex& rhs) {
   return rhs.WriteToStream(ostrm);
 }
 
 int main() {
-  Complex z;
-  std::cin >> z;
-  Complex y;
-  std::cin >> y;
-  std::cout << z << ' ' << y << '\n';
+  Complex z(5, 7);
+  Complex y(8, 2);
+  std::cout << "Z = " << z << "; Y = " << y << '\n';
+  std::cout << "Addition test:\n";
+  std::cout << z << " + " << y << " = " << (z + y) << '\n';
+  std::cout << z << " + " << 3 << " = " << (z + 3) << '\n';
+  std::cout << 3 << " + " << z << " = " << (3 + z) << '\n';
+  std::cout << "Subtraction test:\n";
+  std::cout << z << " - " << y << " = " << (z - y) << '\n';
+  std::cout << z << " - " << 3 << " = " << (z - 3) << '\n';
+  std::cout << 3 << " - " << z << " = " << (3 - z) << '\n';
+  std::cout << "Multiplication test:\n";
+  std::cout << z << " * " << y << " = " << (z * y) << '\n';
   return 0;
 }
 
@@ -61,7 +69,7 @@ Complex& Complex::operator+=(const Complex& rhs) {
 }
 
 Complex operator+(const Complex& lhs, const Complex& rhs) {
-  return Complex(lhs.re + rhs.re, lhs.im + rhs.re);
+  return Complex(lhs.re + rhs.re, lhs.im + rhs.im);
 }
 
 Complex& Complex::operator-=(const Complex& rhs) {
@@ -71,22 +79,22 @@ Complex& Complex::operator-=(const Complex& rhs) {
 }
 
 Complex operator-(const Complex& lhs, const Complex& rhs) {
-  return Complex(lhs.re - rhs.re, lhs.im - rhs.re);
+  return Complex(lhs.re - rhs.re, lhs.im - rhs.im);
 }
 
 Complex& Complex::operator*=(const Complex& rhs) {
   re = re * rhs.re - im * rhs.im;
-  im = re * rhs.re + im * rhs.im;
+  im = im * rhs.re + re * rhs.im;
   return *this;
 }
 
 Complex operator*(const Complex& lhs, const Complex& rhs) {
   Complex product(lhs);
-  product *= lhs;
+  product *= rhs;
   return product;
 }
 
-std::ostream& Complex::WriteToStream(std::ostream& ostrm) {
+std::ostream& Complex::WriteToStream(std::ostream& ostrm) const {
   ostrm << '{' << re << ',' << im << '}';
   return ostrm;
 }
