@@ -97,7 +97,16 @@ void MultiplicationTest(const Complex& z, const Complex& y, Complex& x) {
 }
 
 void DivisionTest(const Complex& z, const Complex& y, Complex& x) {
+  std::cout << "Division test:\n";
   std::cout << z << " / " << y << " = " << (z / y) << '\n';
+  x = z;
+  x /= y;
+  std::cout << z << " /= " << y << " -> " << x << '\n';
+  std::cout << z << " / " << 3 << " = " << (z / 3) << '\n';
+  x = z;
+  x /= 3;
+  std::cout << z << " /= " << 3 << " -> " << x << '\n';
+  std::cout << 3 << " / " << z << " = " << (3 / z) << '\n';
   std::cout << '\n';
 }
 
