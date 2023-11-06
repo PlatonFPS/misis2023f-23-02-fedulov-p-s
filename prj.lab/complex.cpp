@@ -7,11 +7,14 @@ struct Complex {
   Complex() = default;
   Complex(double real);
   Complex(double real, double imaginary);
+  inline Complex Conjugate() const;
   bool operator==(const Complex& rhs);
   bool operator!=(const Complex& rhs);
   Complex& operator+=(const Complex& rhs);
   Complex& operator-=(const Complex& rhs);
   Complex& operator*=(const Complex& rhs);
+  Complex& operator/=(double rhs);
+  Complex& operator/=(const Complex& rhs);
   std::ostream& WriteToStream(std::ostream& ostrm) const;
   std::istream& ReadFromStream(std::istream& istrm);
 };
@@ -19,6 +22,7 @@ struct Complex {
 Complex operator+(const Complex& lhs, const Complex& rhs);
 Complex operator-(const Complex& lhs, const Complex& rhs);
 Complex operator*(const Complex& lhs, const Complex& rhs);
+Complex operator/(const Complex& lhs, const Complex& rhs);
 
 inline std::istream& operator>>(std::istream& istrm, Complex& rhs) {
   return rhs.ReadFromStream(istrm);
@@ -28,20 +32,93 @@ inline std::ostream& operator<<(std::ostream& ostrm, const Complex& rhs) {
   return rhs.WriteToStream(ostrm);
 }
 
-int main() {
-  Complex z(5, 7);
-  Complex y(8, 2);
-  std::cout << "Z = " << z << "; Y = " << y << '\n';
+bool TestParse(const std::string& str) {
+  std::istringstream istrm(str);
+  Complex z;
+  istrm >> z;
+  if (istrm.good()) {
+    std::cout << "Read Success: ";
+  }
+  else {
+    std::cout << "Read Error: ";
+  }
+  std::cout << "read " << z << " from " << str << '\n';
+  return istrm.good();
+}
+
+void InputTest() {
+  std::cout << "Input Test:\n";
+  TestParse("{2, 4}");
+  TestParse("{6,2}");
+  TestParse("{2 4}");
+  std::cout << '\n';
+}
+
+void AdditionTest(const Complex& z, const Complex& y, Complex& x) {
   std::cout << "Addition test:\n";
   std::cout << z << " + " << y << " = " << (z + y) << '\n';
+  x = z;
+  x += y;
+  std::cout << z << " += " << y << " -> " << x << '\n';
   std::cout << z << " + " << 3 << " = " << (z + 3) << '\n';
+  x = z;
+  x += 3;
+  std::cout << z << " += " << 3 << " -> " << x << '\n';
   std::cout << 3 << " + " << z << " = " << (3 + z) << '\n';
+  std::cout << '\n';
+}
+
+void SubstractionTest(const Complex& z, const Complex& y, Complex& x) {
   std::cout << "Subtraction test:\n";
   std::cout << z << " - " << y << " = " << (z - y) << '\n';
+  x = z;
+  x -= y;
+  std::cout << z << " -= " << y << " -> " << x << '\n';
   std::cout << z << " - " << 3 << " = " << (z - 3) << '\n';
+  x = z;
+  x -= 3;
+  std::cout << z << " -= " << 3 << " -> " << x << '\n';
   std::cout << 3 << " - " << z << " = " << (3 - z) << '\n';
+  std::cout << '\n';
+}
+
+void MultiplicationTest(const Complex& z, const Complex& y, Complex& x) {
   std::cout << "Multiplication test:\n";
   std::cout << z << " * " << y << " = " << (z * y) << '\n';
+  x = z;
+  x *= y;
+  std::cout << z << " *= " << y << " -> " << x << '\n';
+  std::cout << z << " * " << 3 << " = " << (z * 3) << '\n';
+  x = z;
+  x *= 3;
+  std::cout << z << " *= " << 3 << " -> " << x << '\n';
+  std::cout << 3 << " * " << z << " = " << (3 * z) << '\n';
+  std::cout << '\n';
+}
+
+void DivisionTest(const Complex& z, const Complex& y, Complex& x) {
+  std::cout << z << " / " << y << " = " << (z / y) << '\n';
+  std::cout << '\n';
+}
+
+void AriphmeticsTest() {
+  std::cout << "Arithmetics test:\n";
+  Complex z(5, 7);
+  Complex y(8, 2);
+  Complex x(0, 0);
+  std::cout << "Z = " << z << "; Y = " << y << '\n';
+  std::cout << z.Conjugate() << " is conjugate number to " << z << '\n';
+  std::cout << y.Conjugate() << " is conjugate number to " << y << '\n';
+  std::cout << '\n';
+  AdditionTest(z, y, x);
+  SubstractionTest(z, y, x);
+  MultiplicationTest(z, y, x);
+  DivisionTest(z, y, x);
+}
+
+int main() {
+  InputTest();
+  AriphmeticsTest();
   return 0;
 }
 
@@ -52,6 +129,10 @@ Complex::Complex(double real)
 Complex::Complex(double real, double imaginary)
   : re(real)
   , im(imaginary){
+}
+
+Complex Complex::Conjugate() const {
+  return Complex(re, -im);
 }
 
 bool Complex::operator==(const Complex& rhs) {
@@ -83,8 +164,9 @@ Complex operator-(const Complex& lhs, const Complex& rhs) {
 }
 
 Complex& Complex::operator*=(const Complex& rhs) {
-  re = re * rhs.re - im * rhs.im;
+  double real = re * rhs.re - im * rhs.im;
   im = im * rhs.re + re * rhs.im;
+  re = real;
   return *this;
 }
 
@@ -92,6 +174,27 @@ Complex operator*(const Complex& lhs, const Complex& rhs) {
   Complex product(lhs);
   product *= rhs;
   return product;
+}
+
+Complex& Complex::operator/=(double rhs) {
+  re /= rhs;
+  im /= rhs;
+  return *this;
+}
+
+Complex& Complex::operator/=(const Complex& rhs) {
+  double denominator = rhs.re * rhs.re + rhs.im * rhs.im;
+  if (denominator != 0) {
+    *this *= rhs.Conjugate();
+    *this /= denominator;
+    return *this;
+  }
+}
+
+Complex operator/(const Complex& lhs, const Complex& rhs) {
+  Complex quotient = lhs;
+  quotient /= rhs;
+  return quotient;
 }
 
 std::ostream& Complex::WriteToStream(std::ostream& ostrm) const {
