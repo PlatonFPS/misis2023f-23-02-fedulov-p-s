@@ -5,12 +5,13 @@ struct Complex {
   double re{ 0.0 };
   double im{ 0.0 };
   Complex() = default;
-  Complex(double real);
+  explicit Complex(double real);
   Complex(double real, double imaginary);
   inline Complex Conjugate() const;
   bool operator==(const Complex& rhs);
   bool operator!=(const Complex& rhs);
   Complex& operator+=(const Complex& rhs);
+  Complex& operator+=(const double rhs);
   Complex& operator-=(const Complex& rhs);
   Complex& operator*=(const Complex& rhs);
   Complex& operator/=(double rhs);
@@ -20,6 +21,8 @@ struct Complex {
 };
 
 Complex operator+(const Complex& lhs, const Complex& rhs);
+Complex operator+(const Complex& lhs, const double rhs);
+Complex operator+(const double lhs, const Complex& rhs);
 Complex operator-(const Complex& lhs, const Complex& rhs);
 Complex operator*(const Complex& lhs, const Complex& rhs);
 Complex operator/(const Complex& lhs, const Complex& rhs);
@@ -159,8 +162,21 @@ Complex& Complex::operator+=(const Complex& rhs) {
   return *this;
 }
 
+Complex& Complex::operator+=(const double rhs) {
+  re += rhs;
+  return *this;
+}
+
 Complex operator+(const Complex& lhs, const Complex& rhs) {
   return Complex(lhs.re + rhs.re, lhs.im + rhs.im);
+}
+
+Complex operator+(const Complex& lhs, const double rhs) {
+  return lhs + Complex(rhs);
+}
+
+Complex operator+(const double lhs, const Complex& rhs) {
+  return Complex(rhs) + lhs;
 }
 
 Complex& Complex::operator-=(const Complex& rhs) {
