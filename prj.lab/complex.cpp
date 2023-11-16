@@ -19,8 +19,8 @@ struct Complex {
   Complex& operator-=(const double rhs);
   Complex& operator*=(const Complex& rhs);
   Complex& operator*=(const double rhs);
-  Complex& operator/=(const Complex& rhs);
   Complex& operator/=(double rhs);
+  Complex& operator/=(const Complex& rhs);
   std::ostream& WriteToStream(std::ostream& ostrm) const;
   std::istream& ReadFromStream(std::istream& istrm);
 };
@@ -122,6 +122,12 @@ void DivisionTest(const Complex& z, const Complex& y, Complex& x) {
   x /= 3;
   std::cout << z << " /= " << 3 << " -> " << x << "; Expected: {1.6667, 2.3333}" << '\n';
   std::cout << z << " / " << y << " * " << y << " = " << ((z / y) * y) << "; Expected: {5, 7}" << '\n';
+  try {
+    std::cout << z << " / " << 0 << " = " << (z / 0) << '\n';
+  }
+  catch (const std::exception& a) {
+    std::cout << a.what() << '\n';
+  }
   std::cout << '\n';
 }
 
@@ -254,19 +260,25 @@ Complex operator*(const double lhs, const Complex& rhs) {
   return Complex(lhs) * rhs;
 }
 
+Complex& Complex::operator/=(double rhs) {
+  if (rhs == 0) {
+    throw std::exception("Division by zero is not allowed");
+  }
+  re /= rhs;
+  im /= rhs;
+  return *this;
+}
+
 Complex& Complex::operator/=(const Complex& rhs) {
+  if (rhs.re == 0 && rhs.im == 0) {
+    throw std::exception("Division by zero is not allowed");
+  }
   double denominator = rhs.re * rhs.re + rhs.im * rhs.im;
   if (denominator != 0) {
     *this *= rhs.Conjugate();
     *this /= denominator;
     return *this;
   }
-}
-
-Complex& Complex::operator/=(double rhs) {
-  re /= rhs;
-  im /= rhs;
-  return *this;
 }
 
 Complex operator/(const Complex& lhs, const Complex& rhs) {
