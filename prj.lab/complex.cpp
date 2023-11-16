@@ -7,8 +7,10 @@ struct Complex {
   Complex() = default;
   explicit Complex(double real);
   Complex(double real, double imaginary);
+  Complex(const Complex& c) = default;
   ~Complex() = default;
   inline Complex Conjugate() const;
+  Complex& operator=(const Complex& copy);
   bool operator==(const Complex& rhs);
   bool operator!=(const Complex& rhs);
   Complex& operator+=(const Complex& rhs);
@@ -155,6 +157,14 @@ Complex::Complex(double real, double imaginary)
 
 Complex Complex::Conjugate() const {
   return Complex(re, -im);
+}
+
+Complex& Complex::operator=(const Complex& copy) {
+  if (copy != *this) {
+    re = copy.re;
+    im = copy.im;
+  }
+  return *this;
 }
 
 bool Complex::operator==(const Complex& rhs) {
