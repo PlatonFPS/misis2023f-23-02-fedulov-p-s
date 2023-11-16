@@ -7,6 +7,7 @@ struct Complex {
   Complex() = default;
   explicit Complex(double real);
   Complex(double real, double imaginary);
+  ~Complex() = default;
   inline Complex Conjugate() const;
   bool operator==(const Complex& rhs);
   bool operator!=(const Complex& rhs);
