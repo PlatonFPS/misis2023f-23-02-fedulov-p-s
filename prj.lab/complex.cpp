@@ -70,57 +70,58 @@ void InputTest() {
 
 void AdditionTest(const Complex& z, const Complex& y, Complex& x) {
   std::cout << "Addition test:\n";
-  std::cout << z << " + " << y << " = " << (z + y) << '\n';
+  std::cout << z << " + " << y << " = " << (z + y) << "; Expected: {13, 9}" << '\n';
   x = z;
   x += y;
-  std::cout << z << " += " << y << " -> " << x << '\n';
-  std::cout << z << " + " << 3 << " = " << (z + 3) << '\n';
+  std::cout << z << " += " << y << " -> " << x << "; Expected: {13, 9}" << '\n';
+  std::cout << z << " + " << 3 << " = " << (z + 3) << "; Expected: {8, 7}" << '\n';
   x = z;
   x += 3;
-  std::cout << z << " += " << 3 << " -> " << x << '\n';
-  std::cout << 3 << " + " << z << " = " << (3 + z) << '\n';
+  std::cout << z << " += " << 3 << " -> " << x << "; Expected: {8, 7}" << '\n';
+  std::cout << 3 << " + " << z << " = " << (3 + z) << "; Expected: {8, 7}" << '\n';
   std::cout << '\n';
 }
 
 void SubstractionTest(const Complex& z, const Complex& y, Complex& x) {
   std::cout << "Subtraction test:\n";
-  std::cout << z << " - " << y << " = " << (z - y) << '\n';
+  std::cout << z << " - " << y << " = " << (z - y) << "; Expected: {-3, 5}" << '\n';
   x = z;
   x -= y;
-  std::cout << z << " -= " << y << " -> " << x << '\n';
-  std::cout << z << " - " << 3 << " = " << (z - 3) << '\n';
+  std::cout << z << " -= " << y << " -> " << x << "; Expected: {-3, 5}" << '\n';
+  std::cout << z << " - " << 3 << " = " << (z - 3) << "; Expected: {2, 7}" << '\n';
   x = z;
   x -= 3;
-  std::cout << z << " -= " << 3 << " -> " << x << '\n';
-  std::cout << 3 << " - " << z << " = " << (3 - z) << '\n';
+  std::cout << z << " -= " << 3 << " -> " << x << "; Expected: {2, 7}" << '\n';
+  std::cout << 3 << " - " << z << " = " << (3 - z) << "; Expected: {-2, -7}" << '\n';
   std::cout << '\n';
 }
 
 void MultiplicationTest(const Complex& z, const Complex& y, Complex& x) {
   std::cout << "Multiplication test:\n";
-  std::cout << z << " * " << y << " = " << (z * y) << '\n';
+  std::cout << z << " * " << y << " = " << (z * y) << "; Expected: {26, 66}" << '\n';
   x = z;
   x *= y;
-  std::cout << z << " *= " << y << " -> " << x << '\n';
-  std::cout << z << " * " << 3 << " = " << (z * 3) << '\n';
+  std::cout << z << " *= " << y << " -> " << x << "; Expected: {26, 66}" << '\n';
+  std::cout << z << " * " << 3 << " = " << (z * 3) << "; Expected: {15, 21}" << '\n';
   x = z;
   x *= 3;
-  std::cout << z << " *= " << 3 << " -> " << x << '\n';
-  std::cout << 3 << " * " << z << " = " << (3 * z) << '\n';
+  std::cout << z << " *= " << 3 << " -> " << x << "; Expected: {15, 21}" << '\n';
+  std::cout << 3 << " * " << z << " = " << (3 * z) << "; Expected: {15, 21}" << '\n';
+  std::cout << 0 << " * " << z << " = " << (0 * z) << "; Expected: {0, 0}" << '\n';
   std::cout << '\n';
 }
 
 void DivisionTest(const Complex& z, const Complex& y, Complex& x) {
   std::cout << "Division test:\n";
-  std::cout << z << " / " << y << " = " << (z / y) << '\n';
+  std::cout << z << " / " << y << " = " << (z / y) << "; Expected: {0.794118, 0.676471}" << '\n';
   x = z;
   x /= y;
-  std::cout << z << " /= " << y << " -> " << x << '\n';
-  std::cout << z << " / " << 3 << " = " << (z / 3) << '\n';
+  std::cout << z << " /= " << y << " -> " << x << "; Expected: {0.794118, 0.676471}" << '\n';
+  std::cout << z << " / " << 3 << " = " << (z / 3) << "; Expected: {1.6667, 2.3333}" << '\n';
   x = z;
   x /= 3;
-  std::cout << z << " /= " << 3 << " -> " << x << '\n';
-  std::cout << z << " / " << y << " * " << y << " = " << ((z / y) * y) << '\n';
+  std::cout << z << " /= " << 3 << " -> " << x << "; Expected: {1.6667, 2.3333}" << '\n';
+  std::cout << z << " / " << y << " * " << y << " = " << ((z / y) * y) << "; Expected: {5, 7}" << '\n';
   std::cout << '\n';
 }
 
