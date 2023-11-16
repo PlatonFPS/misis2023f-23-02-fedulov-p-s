@@ -25,6 +25,7 @@ struct Complex {
 Complex operator+(const Complex& lhs, const Complex& rhs);
 Complex operator+(const Complex& lhs, const double rhs);
 Complex operator+(const double lhs, const Complex& rhs);
+Complex operator-(const Complex& rhs);
 Complex operator-(const Complex& lhs, const Complex& rhs);
 Complex operator-(const Complex& lhs, const double rhs);
 Complex operator-(const double lhs, const Complex& rhs);
@@ -128,6 +129,7 @@ void AriphmeticsTest() {
   std::cout << "Z = " << z << "; Y = " << y << '\n';
   std::cout << z.Conjugate() << " is conjugate number to " << z << '\n';
   std::cout << y.Conjugate() << " is conjugate number to " << y << '\n';
+  std::cout << "-" << z << " = " << -z << '\n';
   std::cout << '\n';
   AdditionTest(z, y, x);
   SubstractionTest(z, y, x);
@@ -196,6 +198,11 @@ Complex& Complex::operator-=(const double rhs) {
   return *this;
 }
 
+Complex operator-(const Complex& rhs) {
+  Complex neggative(-rhs.re, -rhs.im);
+  return neggative;
+}
+
 Complex operator-(const Complex& lhs, const Complex& rhs) {
   return Complex(lhs.re - rhs.re, lhs.im - rhs.im);
 }
@@ -205,7 +212,7 @@ Complex operator-(const Complex& lhs, const double rhs) {
 }
 
 Complex operator-(const double lhs, const Complex& rhs) {
-  return Complex(rhs) - lhs;
+  return Complex(lhs) - rhs;
 }
 
 Complex& Complex::operator*=(const Complex& rhs) {
