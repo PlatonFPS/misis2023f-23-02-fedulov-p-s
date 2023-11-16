@@ -13,9 +13,11 @@ struct Complex {
   Complex& operator+=(const Complex& rhs);
   Complex& operator+=(const double rhs);
   Complex& operator-=(const Complex& rhs);
+  Complex& operator-=(const double rhs);
   Complex& operator*=(const Complex& rhs);
-  Complex& operator/=(double rhs);
+  Complex& operator*=(const double rhs);
   Complex& operator/=(const Complex& rhs);
+  Complex& operator/=(double rhs);
   std::ostream& WriteToStream(std::ostream& ostrm) const;
   std::istream& ReadFromStream(std::istream& istrm);
 };
@@ -24,8 +26,13 @@ Complex operator+(const Complex& lhs, const Complex& rhs);
 Complex operator+(const Complex& lhs, const double rhs);
 Complex operator+(const double lhs, const Complex& rhs);
 Complex operator-(const Complex& lhs, const Complex& rhs);
+Complex operator-(const Complex& lhs, const double rhs);
+Complex operator-(const double lhs, const Complex& rhs);
 Complex operator*(const Complex& lhs, const Complex& rhs);
+Complex operator*(const Complex& lhs, const double rhs);
+Complex operator*(const double lhs, const Complex& rhs);
 Complex operator/(const Complex& lhs, const Complex& rhs);
+Complex operator/(const Complex& lhs, const double rhs);
 
 inline std::istream& operator>>(std::istream& istrm, Complex& rhs) {
   return rhs.ReadFromStream(istrm);
@@ -109,7 +116,6 @@ void DivisionTest(const Complex& z, const Complex& y, Complex& x) {
   x = z;
   x /= 3;
   std::cout << z << " /= " << 3 << " -> " << x << '\n';
-  std::cout << 3 << " / " << z << " = " << (3 / z) << '\n';
   std::cout << z << " / " << y << " * " << y << " = " << ((z / y) * y) << '\n';
   std::cout << '\n';
 }
@@ -185,8 +191,21 @@ Complex& Complex::operator-=(const Complex& rhs) {
   return *this; 
 }
 
+Complex& Complex::operator-=(const double rhs) {
+  re -= rhs;
+  return *this;
+}
+
 Complex operator-(const Complex& lhs, const Complex& rhs) {
   return Complex(lhs.re - rhs.re, lhs.im - rhs.im);
+}
+
+Complex operator-(const Complex& lhs, const double rhs) {
+  return lhs - Complex(rhs);
+}
+
+Complex operator-(const double lhs, const Complex& rhs) {
+  return Complex(rhs) - lhs;
 }
 
 Complex& Complex::operator*=(const Complex& rhs) {
@@ -196,16 +215,24 @@ Complex& Complex::operator*=(const Complex& rhs) {
   return *this;
 }
 
+Complex& Complex::operator*=(const double rhs) {
+  re *= rhs;
+  im *= rhs;
+  return *this;
+}
+
 Complex operator*(const Complex& lhs, const Complex& rhs) {
   Complex product(lhs);
   product *= rhs;
   return product;
 }
 
-Complex& Complex::operator/=(double rhs) {
-  re /= rhs;
-  im /= rhs;
-  return *this;
+Complex operator*(const Complex& lhs, const double rhs) {
+  return lhs * Complex(rhs);
+}
+
+Complex operator*(const double lhs, const Complex& rhs) {
+  return Complex(lhs) * rhs;
 }
 
 Complex& Complex::operator/=(const Complex& rhs) {
@@ -217,10 +244,20 @@ Complex& Complex::operator/=(const Complex& rhs) {
   }
 }
 
+Complex& Complex::operator/=(double rhs) {
+  re /= rhs;
+  im /= rhs;
+  return *this;
+}
+
 Complex operator/(const Complex& lhs, const Complex& rhs) {
   Complex quotient = lhs;
   quotient /= rhs;
   return quotient;
+}
+
+Complex operator/(const Complex& lhs, const double rhs) {
+  return lhs / Complex(rhs);
 }
 
 std::ostream& Complex::WriteToStream(std::ostream& ostrm) const {
