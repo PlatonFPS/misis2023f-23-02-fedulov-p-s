@@ -6,7 +6,7 @@ struct Complex {
   double im{ 0.0 };
   Complex() = default;
   explicit Complex(double real);
-  Complex(double real, double imaginary);
+  explicit Complex(double real, double imaginary);
   Complex(const Complex& c) = default;
   ~Complex() = default;
   inline Complex Conjugate() const;
