@@ -54,20 +54,22 @@ void MultiplicationTest(const Complex& z, const Complex& y, Complex& x) {
 
 void DivisionTest(const Complex& z, const Complex& y, Complex& x) {
   std::cout << "Division test:\n";
+  std::cout << z << " / " << y << " = " << (z / y) << "; Expected: {0.794118, 0.676471}" << '\n';
+  x = z;
+  x /= y;
+  std::cout << z << " /= " << y << " -> " << x << "; Expected: {0.794118, 0.676471}" << '\n';
+  std::cout << z << " / " << 3 << " = " << (z / 3) << "; Expected: {1.6667, 2.3333}" << '\n';
+  x = z;
+  x /= 3;
+  std::cout << z << " /= " << 3 << " -> " << x << "; Expected: {1.6667, 2.3333}" << '\n';
+  std::cout << z << " / " << y << " * " << y << " = " << ((z / y) * y) << "; Expected: {5, 7}" << '\n';
   try {
-    std::cout << z << " / " << y << " = " << (z / y) << "; Expected: {0.794118, 0.676471}" << '\n';
-    x = z;
-    x /= y;
-    std::cout << z << " /= " << y << " -> " << x << "; Expected: {0.794118, 0.676471}" << '\n';
-    std::cout << z << " / " << 3 << " = " << (z / 3) << "; Expected: {1.6667, 2.3333}" << '\n';
-    x = z;
-    x /= 3;
-    std::cout << z << " /= " << 3 << " -> " << x << "; Expected: {1.6667, 2.3333}" << '\n';
-    std::cout << z << " / " << y << " * " << y << " = " << ((z / y) * y) << "; Expected: {5, 7}" << '\n';
-    std::cout << z << " / " << 0 << " = " << (z / 0) << '\n';
+    std::cout << z << " / " << 0;
+    z / 0;
+    std::cout << " = " << (z / 0) << '\n';
   }
   catch (const std::exception& e) {
-    std::cout << e.what() << '\n';
+    std::cout << " -> Exception was thrown: " << e.what() << '\n';
   }
   std::cout << '\n';
 }
