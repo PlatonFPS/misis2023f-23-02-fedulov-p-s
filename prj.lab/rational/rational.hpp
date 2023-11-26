@@ -13,6 +13,14 @@ public:
   bool operator==(const int64_t rhs) { return operator==(Rational(rhs)); }
   bool operator!=(const Rational& rhs) { return !(operator==(rhs)); }
   bool operator!=(const int64_t rhs) { return operator!=(Rational(rhs)); }
+  bool operator<(const Rational& rhs) { return num * rhs.den < rhs.num * den; }
+  bool operator<(const int64_t rhs) { return operator<(Rational(rhs)); }
+  bool operator<=(const Rational& rhs) { return operator<(rhs) || operator==(rhs); }
+  bool operator<=(const int64_t rhs) { return operator<=(Rational(rhs)); }
+  bool operator>(const Rational& rhs) { return num * rhs.den > rhs.num * den; }
+  bool operator>(const int64_t rhs) { return operator>(Rational(rhs)); }
+  bool operator>=(const Rational& rhs) { return operator>(rhs) || operator==(rhs); }
+  bool operator>=(const int64_t rhs) { return operator>=(Rational(rhs)); }
 
 private:
   int64_t num = 0;
