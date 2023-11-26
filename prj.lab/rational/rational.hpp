@@ -3,8 +3,8 @@
 class Rational {
 public:
   Rational() = default;
-  explicit Rational(const int64_t num);
-  Rational(const int64_t num, const int64_t den);
+  explicit Rational(const int64_t number);
+  Rational(const int64_t number, const int64_t denominator);
 
   int64_t GetNum() { return num; }
   int64_t GetDen() { return den; }
