@@ -1,6 +1,17 @@
 #include "rational.hpp"
 #include <iostream>
 
+int64_t GreatestCommonDiviser(const int64_t lhs, const int64_t rhs) {
+  if (lhs % rhs == 0) return rhs;
+  if (rhs % lhs == 0) return lhs;
+  if (lhs > rhs) return GreatestCommonDiviser(lhs % rhs, rhs);
+  return GreatestCommonDiviser(lhs, rhs % lhs);
+}
+
+int64_t LeastCommonMultiple(const int64_t lhs, const int64_t rhs) {
+  return (lhs * rhs) / GreatestCommonDiviser(lhs, rhs);
+} 
+
 Rational::Rational(const int64_t number)
   : Rational(number, 1) {
 }
@@ -15,5 +26,29 @@ Rational::Rational(const int64_t number, const int64_t denominator)
     num = -num;
     den = -den;
   }
-  //implement dividing num and den by the greatest common diviser
+  SimplifyFraction();
 }
+
+void Rational::SimplifyFraction() {
+  int64_t greatest_common_diviser = GreatestCommonDiviser(std::abs(num), den);
+  if (greatest_common_diviser != 1) {
+    num /= greatest_common_diviser;
+    den /= greatest_common_diviser;
+  }
+}
+
+Rational& Rational::operator+=(const Rational& rhs) {
+  if (den != rhs.den) {
+    int64_t least_common_multiple = LeastCommonMultiple(den, rhs.den);
+    num *= least_common_multiple / den;
+    den = least_common_multiple;
+    num += rhs.num * least_common_multiple / rhs.den;
+  }
+  else {
+    num += rhs.num;
+  }
+  SimplifyFraction();
+  return *this;
+}
+
+//Rational& Rational::operator-=(const Rational& rhs) { return operator+=(-rhs); }

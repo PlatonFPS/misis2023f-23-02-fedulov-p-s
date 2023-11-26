@@ -8,5 +8,8 @@ int main() {
   Rational c(4, 25);
   Rational d(4, 30);
   std::cout << (c <= d) << ' ' << (c <= c) <<  '\n';
+  Rational e(1, 3);
+  Rational f(1, 6);
+  e += f;
   return 0;
 }
