@@ -1,3 +1,2 @@
-add_executable(test_complex test_complex.cpp)
-
-target_link_libraries(test_complex complex)
+add_subdirectory(test_complex)
+add_subdirectory(test_rational)
