@@ -116,7 +116,7 @@ Complex operator*(const double lhs, const Complex& rhs) {
 
 Complex& Complex::operator/=(double rhs) {
   if (rhs == 0) {
-    throw std::exception("Division by zero is not allowed");
+    throw std::invalid_argument("Division by zero is not allowed");
   }
   re /= rhs;
   im /= rhs;
@@ -125,7 +125,7 @@ Complex& Complex::operator/=(double rhs) {
 
 Complex& Complex::operator/=(const Complex& rhs) {
   if (rhs.re == 0 && rhs.im == 0) {
-    throw std::exception("Division by zero is not allowed");
+    throw std::invalid_argument("Division by zero is not allowed");
   }
   double denominator = rhs.re * rhs.re + rhs.im * rhs.im;
   if (denominator != 0) {

@@ -68,7 +68,7 @@ void DivisionTest(const Complex& z, const Complex& y, Complex& x) {
     z / 0;
     std::cout << " = " << (z / 0) << '\n';
   }
-  catch (const std::exception& e) {
+  catch (const std::invalid_argument& e) {
     std::cout << " -> Exception was thrown: " << e.what() << '\n';
   }
   std::cout << '\n';
