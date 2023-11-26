@@ -2,6 +2,9 @@
 #include <iostream>
 
 int main() {
+  Rational i;
+  std::cin >> i;
+  std::cout << i << '\n';
   Rational a(3);
   Rational b(3, 1);
   std::cout << (a == b) << ' ' << (a != b) << '\n';

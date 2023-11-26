@@ -52,3 +52,26 @@ Rational& Rational::operator+=(const Rational& rhs) {
 }
 
 //Rational& Rational::operator-=(const Rational& rhs) { return operator+=(-rhs); }
+
+std::ostream& Rational::WriteTo(std::ostream& ostrm) const {
+  ostrm << num << separator << den;
+  return ostrm;
+}
+
+std::istream& Rational::ReadFrom(std::istream& istrm) {
+  int64_t number = 0;
+  char sep = '.';
+  int64_t denominator = 1;
+  istrm >> number >> sep >> denominator;
+  if (istrm.good()) {
+    if (sep == Rational::separator) {
+      num = number;
+      den = denominator;
+      SimplifyFraction();
+    }
+    else {
+      istrm.setstate(std::ios_base::failbit);
+    }
+  }
+  return istrm;
+}

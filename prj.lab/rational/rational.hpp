@@ -1,4 +1,7 @@
+#ifndef RATIONAL_HPP
+#define RATIONAL_HPP
 #include <cstdint>
+#include <sstream>
 
 class Rational {
 public:
@@ -34,9 +37,22 @@ public:
   Rational& operator/=(const Rational& rhs);
   Rational& operator/=(const int64_t rhs) { return operator/=(Rational(rhs)); }
   */
+
+  std::ostream& WriteTo(std::ostream& ostrm) const;
+  std::istream& ReadFrom(std::istream& istrm);
 private:
   int64_t num = 0;
   int64_t den = 1;
+  static const char separator = '/';
 };
 
 //Rational operator-(const Rational& rhs) { return Rational(-rhs.GetNum(), rhs.GetDen()); }
+
+inline std::ostream& operator<<(std::ostream& ostrm, const Rational& rhs) {
+  return rhs.WriteTo(ostrm);
+}
+
+inline std::istream& operator>>(std::istream& istrm, Rational& rhs) {
+  return rhs.ReadFrom(istrm);
+}
+#endif
