@@ -12,18 +12,18 @@ public:
 
   void SimplifyFraction();
 
-  int64_t GetNum() const { return num; }
-  int64_t GetDen() const { return den; }
+  int64_t num() const { return num_; }
+  int64_t den() const { return den_; }
 
-  bool operator==(const Rational& rhs) { return num == rhs.num && den == rhs.den; }
+  bool operator==(const Rational& rhs) { return num_ == rhs.num_ && den_ == rhs.den_; }
   bool operator==(const int64_t rhs) { return operator==(Rational(rhs)); }
   bool operator!=(const Rational& rhs) { return !(operator==(rhs)); }
   bool operator!=(const int64_t rhs) { return operator!=(Rational(rhs)); }
-  bool operator<(const Rational& rhs) { return num * rhs.den < rhs.num * den; }
+  bool operator<(const Rational& rhs) { return num_ * rhs.den_ < rhs.num_ * den_; }
   bool operator<(const int64_t rhs) { return operator<(Rational(rhs)); }
   bool operator<=(const Rational& rhs) { return operator<(rhs) || operator==(rhs); }
   bool operator<=(const int64_t rhs) { return operator<=(Rational(rhs)); }
-  bool operator>(const Rational& rhs) { return num * rhs.den > rhs.num * den; }
+  bool operator>(const Rational& rhs) { return num_ * rhs.den_ > rhs.num_ * den_; }
   bool operator>(const int64_t rhs) { return operator>(Rational(rhs)); }
   bool operator>=(const Rational& rhs) { return operator>(rhs) || operator==(rhs); }
   bool operator>=(const int64_t rhs) { return operator>=(Rational(rhs)); }
@@ -42,8 +42,8 @@ public:
   std::ostream& WriteTo(std::ostream& ostrm) const;
   std::istream& ReadFrom(std::istream& istrm);
 private:
-  int64_t num = 0;
-  int64_t den = 1;
+  int64_t num_ = 0;
+  int64_t den_ = 1;
   static const char separator = '/';
 };
 

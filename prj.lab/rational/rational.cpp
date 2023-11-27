@@ -18,35 +18,35 @@ Rational::Rational(const int64_t number)
 }
 
 Rational::Rational(const int64_t number, const int64_t denominator) 
-  : num(number)
-  , den(denominator) {
+  : num_(number)
+  , den_(denominator) {
   if (denominator == 0) {
     throw std::invalid_argument("Division by zero is not allowed");
   }
-  if (den < 0) {
-    num = -num;
-    den = -den;
+  if (den_ < 0) {
+    num_ = -num_;
+    den_ = -den_;
   }
   SimplifyFraction();
 }
 
 void Rational::SimplifyFraction() {
-  int64_t greatest_common_diviser = GreatestCommonDiviser(std::abs(num), den);
+  int64_t greatest_common_diviser = GreatestCommonDiviser(std::abs(num_), den_);
   if (greatest_common_diviser != 1) {
-    num /= greatest_common_diviser;
-    den /= greatest_common_diviser;
+    num_ /= greatest_common_diviser;
+    den_ /= greatest_common_diviser;
   }
 }
 
 Rational& Rational::operator+=(const Rational& rhs) {
-  if (den != rhs.den) {
-    int64_t least_common_multiple = LeastCommonMultiple(den, rhs.den);
-    num *= least_common_multiple / den;
-    den = least_common_multiple;
-    num += rhs.num * least_common_multiple / rhs.den;
+  if (den_ != rhs.den_) {
+    int64_t least_common_multiple = LeastCommonMultiple(den_, rhs.den_);
+    num_ *= least_common_multiple / den_;
+    den_ = least_common_multiple;
+    num_ += rhs.num_ * least_common_multiple / rhs.den_;
   }
   else {
-    num += rhs.num;
+    num_ += rhs.num_;
   }
   SimplifyFraction();
   return *this;
@@ -55,16 +55,16 @@ Rational& Rational::operator+=(const Rational& rhs) {
 Rational& Rational::operator-=(const Rational& rhs) { return operator+=(-rhs); }
 
 Rational& Rational::operator*=(const Rational& rhs) {
-  num *= rhs.num;
-  den *= rhs.den;
+  num_ *= rhs.num_;
+  den_ *= rhs.den_;
   SimplifyFraction();
   return *this;
 }
 
-Rational operator-(const Rational& rhs) { return Rational(-rhs.GetNum(), rhs.GetDen()); }
+Rational operator-(const Rational& rhs) { return Rational(-rhs.num(), rhs.den()); }
 
 std::ostream& Rational::WriteTo(std::ostream& ostrm) const {
-  ostrm << num << separator << den;
+  ostrm << num_ << separator << den_;
   return ostrm;
 }
 
@@ -75,8 +75,8 @@ std::istream& Rational::ReadFrom(std::istream& istrm) {
   istrm >> number >> sep >> denominator;
   if (istrm.good()) {
     if (sep == Rational::separator) {
-      num = number;
-      den = denominator;
+      num_ = number;
+      den_ = denominator;
       SimplifyFraction();
     }
     else {
