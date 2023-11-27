@@ -23,5 +23,7 @@ int main() {
   Rational k(3, 8);
   p *= k;
   std::cout << p << '\n';
+  p /= c;
+  std::cout << p << '\n';
   return 0;
 }

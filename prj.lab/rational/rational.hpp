@@ -10,6 +10,7 @@ public:
   explicit Rational(const int64_t number);
   Rational(const int64_t number, const int64_t denominator);
 
+  void CheckSign();
   void SimplifyFraction();
 
   int64_t num() const { return num_; }
@@ -34,10 +35,8 @@ public:
   Rational& operator-=(const int64_t rhs) { return operator-=(Rational(rhs)); }
   Rational& operator*=(const Rational& rhs);
   Rational& operator*=(const int64_t rhs) { return operator*=(Rational(rhs)); }
-  /*
   Rational& operator/=(const Rational& rhs);
   Rational& operator/=(const int64_t rhs) { return operator/=(Rational(rhs)); }
-  */
 
   std::ostream& WriteTo(std::ostream& ostrm) const;
   std::istream& ReadFrom(std::istream& istrm);

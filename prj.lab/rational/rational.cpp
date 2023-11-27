@@ -23,11 +23,16 @@ Rational::Rational(const int64_t number, const int64_t denominator)
   if (denominator == 0) {
     throw std::invalid_argument("Division by zero is not allowed");
   }
+  CheckSign();
+  SimplifyFraction();
+}
+
+void Rational::CheckSign() {
   if (den_ < 0) {
     num_ = -num_;
     den_ = -den_;
   }
-  SimplifyFraction();
+  return;
 }
 
 void Rational::SimplifyFraction() {
@@ -36,6 +41,7 @@ void Rational::SimplifyFraction() {
     num_ /= greatest_common_diviser;
     den_ /= greatest_common_diviser;
   }
+  return;
 }
 
 Rational& Rational::operator+=(const Rational& rhs) {
@@ -57,6 +63,14 @@ Rational& Rational::operator-=(const Rational& rhs) { return operator+=(-rhs); }
 Rational& Rational::operator*=(const Rational& rhs) {
   num_ *= rhs.num_;
   den_ *= rhs.den_;
+  SimplifyFraction();
+  return *this;
+}
+
+Rational& Rational::operator/=(const Rational& rhs) {
+  num_ *= rhs.den_;
+  den_ *= rhs.num_;
+  CheckSign();
   SimplifyFraction();
   return *this;
 }
