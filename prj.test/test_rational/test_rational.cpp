@@ -19,5 +19,9 @@ int main() {
   std::cout << -g << '\n';
   e -= g;
   std::cout << e << '\n';
+  Rational p(1, 3);
+  Rational k(3, 8);
+  p *= k;
+  std::cout << p << '\n';
   return 0;
 }

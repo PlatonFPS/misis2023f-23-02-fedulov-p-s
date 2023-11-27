@@ -54,6 +54,13 @@ Rational& Rational::operator+=(const Rational& rhs) {
 
 Rational& Rational::operator-=(const Rational& rhs) { return operator+=(-rhs); }
 
+Rational& Rational::operator*=(const Rational& rhs) {
+  num *= rhs.num;
+  den *= rhs.den;
+  SimplifyFraction();
+  return *this;
+}
+
 Rational operator-(const Rational& rhs) { return Rational(-rhs.GetNum(), rhs.GetDen()); }
 
 std::ostream& Rational::WriteTo(std::ostream& ostrm) const {
