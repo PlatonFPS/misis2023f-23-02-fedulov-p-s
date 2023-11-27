@@ -16,5 +16,7 @@ int main() {
   e += f;
   Rational g(1, 2);
   std::cout << -g << '\n';
+  e -= g;
+  std::cout << e << '\n';
   return 0;
 }

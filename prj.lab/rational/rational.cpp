@@ -51,7 +51,7 @@ Rational& Rational::operator+=(const Rational& rhs) {
   return *this;
 }
 
-//Rational& Rational::operator-=(const Rational& rhs) { return operator+=(-rhs); }
+Rational& Rational::operator-=(const Rational& rhs) { return operator+=(-rhs); }
 
 Rational operator-(const Rational& rhs) { return Rational(-rhs.GetNum(), rhs.GetDen()); }
 

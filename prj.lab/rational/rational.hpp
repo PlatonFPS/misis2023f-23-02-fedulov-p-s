@@ -29,9 +29,9 @@ public:
 
   Rational& operator+=(const Rational& rhs);
   Rational& operator+=(const int64_t rhs) { return operator+=(Rational(rhs)); }
-  /*
   Rational& operator-=(const Rational& rhs);
   Rational& operator-=(const int64_t rhs) { return operator-=(Rational(rhs)); }
+  /*
   Rational& operator*=(const Rational& rhs);
   Rational& operator*=(const int64_t rhs) { return operator*=(Rational(rhs)); }
   Rational& operator/=(const Rational& rhs);
