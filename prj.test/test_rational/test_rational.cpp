@@ -14,5 +14,7 @@ int main() {
   Rational e(1, 3);
   Rational f(1, 6);
   e += f;
+  Rational g(1, 2);
+  std::cout << -g << '\n';
   return 0;
 }

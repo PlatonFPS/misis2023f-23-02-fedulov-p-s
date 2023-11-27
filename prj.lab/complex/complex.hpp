@@ -48,4 +48,4 @@ inline std::istream& operator>>(std::istream& istrm, Complex& rhs) {
 inline std::ostream& operator<<(std::ostream& ostrm, const Complex& rhs) {
   return rhs.WriteToStream(ostrm);
 }
-#endif 
+#endif //COMPLEX_HPP

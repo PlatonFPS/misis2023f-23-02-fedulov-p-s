@@ -46,7 +46,7 @@ private:
   static const char separator = '/';
 };
 
-//Rational operator-(const Rational& rhs) { return Rational(-rhs.GetNum(), rhs.GetDen()); }
+Rational operator-(const Rational& rhs);
 
 inline std::ostream& operator<<(std::ostream& ostrm, const Rational& rhs) {
   return rhs.WriteTo(ostrm);
@@ -55,4 +55,4 @@ inline std::ostream& operator<<(std::ostream& ostrm, const Rational& rhs) {
 inline std::istream& operator>>(std::istream& istrm, Rational& rhs) {
   return rhs.ReadFrom(istrm);
 }
-#endif
+#endif //RATIONAL_HPP
