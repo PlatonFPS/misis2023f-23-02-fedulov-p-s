@@ -1,4 +1,5 @@
 #include <rational/rational.hpp>
+
 #include <iostream>
 
 int main() {

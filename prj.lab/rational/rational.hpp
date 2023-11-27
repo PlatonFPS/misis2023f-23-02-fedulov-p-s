@@ -1,5 +1,6 @@
 #ifndef RATIONAL_HPP
 #define RATIONAL_HPP
+
 #include <cstdint>
 #include <sstream>
 
