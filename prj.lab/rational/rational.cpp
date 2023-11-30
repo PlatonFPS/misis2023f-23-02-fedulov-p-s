@@ -68,6 +68,9 @@ Rational& Rational::operator*=(const Rational& rhs) {
 }
 
 Rational& Rational::operator/=(const Rational& rhs) {
+  if (rhs.den_ == 0) {
+    throw std::invalid_argument("Division by zero is not allowed");
+  }
   num_ *= rhs.den_;
   den_ *= rhs.num_;
   CheckSign();
@@ -76,6 +79,30 @@ Rational& Rational::operator/=(const Rational& rhs) {
 }
 
 Rational operator-(const Rational& rhs) { return Rational(-rhs.num(), rhs.den()); }
+
+Rational operator+(const Rational& lhs, const Rational& rhs) {
+  Rational sum = lhs;
+  sum += rhs;
+  return sum;
+}
+
+Rational operator-(const Rational& lhs, const Rational& rhs) {
+  Rational sum = lhs;
+  sum -= rhs;
+  return sum;
+}
+
+Rational operator*(const Rational& lhs, const Rational& rhs) {
+  Rational sum = lhs;
+  sum *= rhs;
+  return sum;
+}
+
+Rational operator/(const Rational& lhs, const Rational& rhs) {
+  Rational sum = lhs;
+  sum /= rhs;
+  return sum;
+}
 
 std::ostream& Rational::WriteTo(std::ostream& ostrm) const {
   ostrm << num_ << separator << den_;

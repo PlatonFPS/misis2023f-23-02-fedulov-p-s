@@ -9,12 +9,17 @@ public:
   Rational() = default;
   explicit Rational(const int64_t number);
   Rational(const int64_t number, const int64_t denominator);
+  Rational(const Rational& c) = default;
+
+  ~Rational() = default;
 
   void CheckSign();
   void SimplifyFraction();
 
   int64_t num() const { return num_; }
   int64_t den() const { return den_; }
+
+  Rational& operator=(const Rational& copy) = default;
 
   bool operator==(const Rational& rhs) { return num_ == rhs.num_ && den_ == rhs.den_; }
   bool operator==(const int64_t rhs) { return operator==(Rational(rhs)); }
@@ -47,6 +52,11 @@ private:
 };
 
 Rational operator-(const Rational& rhs);
+
+Rational operator+(const Rational& lhs, const Rational& rhs);
+Rational operator-(const Rational& lhs, const Rational& rhs);
+Rational operator*(const Rational& lhs, const Rational& rhs);
+Rational operator/(const Rational& lhs, const Rational& rhs);
 
 inline std::ostream& operator<<(std::ostream& ostrm, const Rational& rhs) {
   return rhs.WriteTo(ostrm);
