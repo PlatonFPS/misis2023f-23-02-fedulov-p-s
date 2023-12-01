@@ -3,9 +3,15 @@
 #include <iostream>
 
 int64_t GreatestCommonDiviser(const int64_t lhs, const int64_t rhs) {
-  if (lhs % rhs == 0) return rhs;
-  if (rhs % lhs == 0) return lhs;
-  if (lhs > rhs) return GreatestCommonDiviser(lhs % rhs, rhs);
+  if (lhs % rhs == 0) {
+    return rhs;
+  }
+  if (rhs % lhs == 0) {
+    return lhs;
+  }
+  if (lhs > rhs) {
+    return GreatestCommonDiviser(lhs % rhs, rhs);
+  }
   return GreatestCommonDiviser(lhs, rhs % lhs);
 }
 
@@ -50,15 +56,16 @@ Rational& Rational::operator+=(const Rational& rhs) {
     num_ *= least_common_multiple / den_;
     den_ = least_common_multiple;
     num_ += rhs.num_ * least_common_multiple / rhs.den_;
-  }
-  else {
+  } else {
     num_ += rhs.num_;
   }
   SimplifyFraction();
   return *this;
 }
 
-Rational& Rational::operator-=(const Rational& rhs) { return operator+=(-rhs); }
+Rational& Rational::operator-=(const Rational& rhs) { 
+  return operator+=(-rhs); 
+}
 
 Rational& Rational::operator*=(const Rational& rhs) {
   num_ *= rhs.num_;
@@ -78,7 +85,9 @@ Rational& Rational::operator/=(const Rational& rhs) {
   return *this;
 }
 
-Rational operator-(const Rational& rhs) { return Rational(-rhs.num(), rhs.den()); }
+Rational operator-(const Rational& rhs) { 
+  return Rational(-rhs.num(), rhs.den()); 
+}
 
 Rational operator+(const Rational& lhs, const Rational& rhs) {
   Rational sum = lhs;
@@ -111,7 +120,7 @@ std::ostream& Rational::WriteTo(std::ostream& ostrm) const {
 
 std::istream& Rational::ReadFrom(std::istream& istrm) {
   int64_t number = 0;
-  char sep = '.';
+  char sep = 0;
   int64_t denominator = 1;
   istrm >> number >> sep >> denominator;
   if (istrm.good()) {
@@ -119,8 +128,7 @@ std::istream& Rational::ReadFrom(std::istream& istrm) {
       num_ = number;
       den_ = denominator;
       SimplifyFraction();
-    }
-    else {
+    } else {
       istrm.setstate(std::ios_base::failbit);
     }
   }

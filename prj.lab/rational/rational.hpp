@@ -2,7 +2,7 @@
 #define RATIONAL_HPP
 
 #include <cstdint>
-#include <sstream>
+#include <iosfwd>
 
 class Rational {
 public:
@@ -12,9 +12,6 @@ public:
   Rational(const Rational& c) = default;
 
   ~Rational() = default;
-
-  void CheckSign();
-  void SimplifyFraction();
 
   int64_t num() const { return num_; }
   int64_t den() const { return den_; }
@@ -49,6 +46,9 @@ private:
   int64_t num_ = 0;
   int64_t den_ = 1;
   static const char separator = '/';
+
+  void CheckSign();
+  void SimplifyFraction();
 };
 
 Rational operator-(const Rational& rhs);
