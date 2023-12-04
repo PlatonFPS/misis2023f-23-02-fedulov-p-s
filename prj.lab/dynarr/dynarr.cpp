@@ -5,6 +5,10 @@
 float value = 0;
 const float kValue = 0;
 
+DynArr::DynArr(const ptrdiff_t size)
+  : size_(size) {
+}
+
 std::ptrdiff_t DynArr::Size() const {
   return size_;
 }

@@ -6,11 +6,11 @@
 class DynArr {
 public:
   DynArr() = default;
-  //DynArr(const DynArr& copy);
-  //DynArr(const ptrdiff_t size);
-  //~DynArr();
+  DynArr(const DynArr& copy) = default;
+  DynArr(const ptrdiff_t size);
+  ~DynArr() = default;
 
-  //DynArr& operator=(const DynArr& value);
+  DynArr& operator=(const DynArr& value) = default;
 
   [[nodiscard]] std::ptrdiff_t Size() const;
   void Resize(const std::ptrdiff_t size);

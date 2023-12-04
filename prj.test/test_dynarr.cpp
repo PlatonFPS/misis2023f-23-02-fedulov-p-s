@@ -44,4 +44,7 @@ TEST_CASE("DynArr test") {
   CHECK(arr[0] == doctest::Approx(2.1));
   arr.Resize(4);
   CHECK(arr[3] == 0);
+
+  DynArr arr2(4);
+  CHECK(arr2.Size() == 4);
 }
