@@ -26,12 +26,14 @@ TEST_CASE("DynArr test") {
   CHECK(arr[0] != arr[1]);
   
   arr.Resize(8);
+  CHECK_NOTHROW(arr[7]);
   CHECK(arr[7] == 0);
   
   arr.Resize(2);
   CHECK(arr[1] == 6);
   
-  arr.Resize(0);
+  arr.Resize(1);
+  arr[0] = 0;
   arr.Resize(4);
   CHECK(arr[0] == 0);
   arr[0] = 2.1;
@@ -47,4 +49,25 @@ TEST_CASE("DynArr test") {
 
   DynArr arr2(4);
   CHECK(arr2.Size() == 4);
+  CHECK(arr2[0] == 0);
+  CHECK(arr2[3] == 0);
+
+  CHECK_NOTHROW(arr.Resize(10000));
+  arr[9999] = 3.789;
+  CHECK(arr[9999] == doctest::Approx(3.789));
+  
+  arr.Resize(2);
+  arr[0] = 3.5;
+  arr[1] = 3.5;
+  CHECK(arr[0] == doctest::Approx(arr[1]));
+  arr[1] += 2;
+  CHECK(arr[0] != doctest::Approx(arr[1]));
+
+  arr[0] = 4.567;
+  arr[1] = 5.678;
+  CHECK(arr[0] != arr[1]);
+
+  DynArr arr3(arr);
+  CHECK(arr3[0] == doctest::Approx(arr[0]));
+  CHECK(arr3[1] == doctest::Approx(arr[1]));
 }

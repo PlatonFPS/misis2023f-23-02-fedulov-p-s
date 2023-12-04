@@ -14,9 +14,9 @@ std::ptrdiff_t DynArr::Size() const {
 }
 
 void DynArr::Resize(const std::ptrdiff_t size) {
-  if (size < 0) {
-    throw std::invalid_argument("Negative size is not allowed");
-  }
+  if (size <= 0) {
+    throw std::invalid_argument("Non-positive size is not allowed");
+  } 
   size_ = size;
   return;
 }
