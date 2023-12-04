@@ -12,11 +12,11 @@ public:
 
   //DynArr& operator=(const DynArr& value);
 
-  std::ptrdiff_t Size() const;
+  [[nodiscard]] std::ptrdiff_t Size() const;
   void Resize(const std::ptrdiff_t size);
 
-  float& operator[](const std::ptrdiff_t i);
-  const float& operator[](const std::ptrdiff_t i) const;
+  [[nodiscard]] float& operator[](const std::ptrdiff_t i);
+  [[nodiscard]] const float& operator[](const std::ptrdiff_t i) const;
 
 private:
   std::ptrdiff_t size_ = 0;
