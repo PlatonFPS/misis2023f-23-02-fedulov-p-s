@@ -70,4 +70,22 @@ TEST_CASE("DynArr test") {
   DynArr arr3(arr);
   CHECK(arr3[0] == doctest::Approx(arr[0]));
   CHECK(arr3[1] == doctest::Approx(arr[1]));
+
+  DynArr arr4;
+  arr4 = arr;
+  CHECK(arr4[0] == doctest::Approx(arr[0]));
+  CHECK(arr4[1] == doctest::Approx(arr[1]));
+
+  arr2[0] += 2;
+  arr3[0] -= 2;
+  arr2[1] += 1;
+  arr3[1] -= 1;
+  CHECK(arr[0] != doctest::Approx(arr2[0]));
+  CHECK(arr[0] != doctest::Approx(arr3[0]));
+  CHECK(arr2[0] != doctest::Approx(arr3[0]));
+  CHECK(arr[1] != doctest::Approx(arr2[1]));
+  CHECK(arr[1] != doctest::Approx(arr3[1]));
+  CHECK(arr2[1] != doctest::Approx(arr3[1]));
+
+
 }
