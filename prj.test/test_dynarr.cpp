@@ -18,39 +18,39 @@ TEST_CASE("DynArr test") {
   CHECK_THROWS(arr[6]);
 
   arr[0] = 4;
-  CHECK(arr[0] == 4);
+  CHECK(arr[0] == doctest::Approx(4));
 
   arr[1] = 6;
-  CHECK(arr[1] == 6);
-  CHECK(arr[0] == 4);
-  CHECK(arr[0] != arr[1]);
+  CHECK(arr[1] == doctest::Approx(6));
+  CHECK(arr[0] == doctest::Approx(4));
+  CHECK(arr[0] != doctest::Approx(arr[1]));
   
   arr.Resize(8);
   CHECK_NOTHROW(arr[7]);
-  CHECK(arr[7] == 0);
+  CHECK(arr[7] == doctest::Approx(0));
   
   arr.Resize(2);
-  CHECK(arr[1] == 6);
+  CHECK(arr[1] == doctest::Approx(6));
   
   arr.Resize(1);
   arr[0] = 0;
   arr.Resize(4);
-  CHECK(arr[0] == 0);
+  CHECK(arr[0] == doctest::Approx(0));
   arr[0] = 2.1;
   arr[1] = 2;
   arr[3] = 5;
-  CHECK(arr[3] == 5);
+  CHECK(arr[3] == doctest::Approx(5));
   arr.Resize(2);
-  CHECK_THROWS(arr[3]);
-  CHECK(arr[1] == 2);
+  CHECK_THROWS(doctest::Approx(arr[3]));
+  CHECK(arr[1] == doctest::Approx(2));
   CHECK(arr[0] == doctest::Approx(2.1));
   arr.Resize(4);
-  CHECK(arr[3] == 0);
+  CHECK(arr[3] == doctest::Approx(0));
 
   DynArr arr2(4);
   CHECK(arr2.Size() == 4);
-  CHECK(arr2[0] == 0);
-  CHECK(arr2[3] == 0);
+  CHECK(arr2[0] == doctest::Approx(0));
+  CHECK(arr2[3] == doctest::Approx(0));
 
   CHECK_NOTHROW(arr.Resize(10000));
   arr[9999] = 3.789;
