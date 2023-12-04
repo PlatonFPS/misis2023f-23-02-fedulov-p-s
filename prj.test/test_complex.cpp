@@ -6,6 +6,7 @@ void InputTest() {
   std::cout << "Input Test:\n";
   TestParse("{2, 4}");
   TestParse("{6,2}");
+  TestParse("{4 ,2 }");
   TestParse("{2 4}");
   std::cout << '\n';
 }
