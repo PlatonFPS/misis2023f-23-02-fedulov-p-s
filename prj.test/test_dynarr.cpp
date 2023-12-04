@@ -28,4 +28,18 @@ TEST_CASE("DynArr test") {
   
   arr.Resize(2);
   CHECK(arr[1] == 6);
+  
+  arr.Resize(0);
+  arr.Resize(4);
+  CHECK(arr[0] == 0);
+  arr[0] = 3;
+  arr[1] = 2;
+  arr[3] = 5;
+  CHECK(arr[3] == 5);
+  arr.Resize(2);
+  CHECK_THROWS(arr[3]);
+  CHECK(arr[1] == 2);
+  CHECK(arr[0] = 3);
+  arr.Resize(4);
+  CHECK(arr[3] == 0);
 }
