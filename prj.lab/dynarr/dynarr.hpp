@@ -1,18 +1,21 @@
 #ifndef DYNARR_HPP
 #define DYNARR_HPP
 
+#include <stdexcept>
 #include <cstddef>
 
 class DynArr {
 public:
   DynArr() = default;
-  DynArr(const DynArr& copy) = default;
-  DynArr(const ptrdiff_t size);
-  ~DynArr() = default;
+  explicit DynArr(const DynArr& copy);
+  explicit DynArr(const ptrdiff_t size);
+  ~DynArr();
 
-  DynArr& operator=(const DynArr& value) = default;
+  void operator=(const DynArr& value);
 
-  [[nodiscard]] std::ptrdiff_t Size() const;
+  [[nodiscard]] std::ptrdiff_t Size() const { return size_; }
+  [[nodiscard]] std::ptrdiff_t Capacity() const { return capacity_; }
+
   void Resize(const std::ptrdiff_t size);
 
   [[nodiscard]] float& operator[](const std::ptrdiff_t i);
@@ -20,7 +23,9 @@ public:
 
 private:
   std::ptrdiff_t size_ = 0;
+  std::ptrdiff_t capacity_ = 0;
   float* data_ = nullptr;
+  float default_value = 0;
 };
 
 #endif //DYNARR_HPP

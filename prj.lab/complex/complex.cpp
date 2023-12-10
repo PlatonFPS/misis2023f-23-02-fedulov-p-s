@@ -1,6 +1,7 @@
 #include "complex.hpp"
 
 #include <iostream>
+#include <sstream>
 
 bool TestParse(const std::string& str) {
   std::istringstream istrm(str);
@@ -133,6 +134,8 @@ Complex& Complex::operator/=(const Complex& rhs) {
     *this *= rhs.Conjugate();
     *this /= denominator;
     return *this;
+  } else {
+    throw std::invalid_argument("Non-zero denominator is required");
   }
 }
 

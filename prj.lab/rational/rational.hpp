@@ -2,6 +2,7 @@
 #define RATIONAL_HPP
 
 #include <cstdint>
+#include <stdexcept>
 #include <iosfwd>
 
 class Rational {

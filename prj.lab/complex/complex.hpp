@@ -1,7 +1,8 @@
 #ifndef COMPLEX_HPP
 #define COMPLEX_HPP
 
-#include<sstream>
+#include <iosfwd>
+#include <stdexcept>
 
 struct Complex {
   double re{ 0.0 };

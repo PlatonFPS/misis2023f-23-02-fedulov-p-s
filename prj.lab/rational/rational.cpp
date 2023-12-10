@@ -1,6 +1,7 @@
 #include "rational.hpp"
 
 #include <iostream>
+#include <sstream>
 
 int64_t GreatestCommonDiviser(const int64_t lhs, const int64_t rhs) {
   if (lhs % rhs == 0) {

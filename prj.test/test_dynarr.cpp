@@ -24,11 +24,11 @@ TEST_CASE("DynArr test") {
   CHECK(arr[1] == doctest::Approx(6));
   CHECK(arr[0] == doctest::Approx(4));
   CHECK(arr[0] != doctest::Approx(arr[1]));
-  
+
   arr.Resize(8);
   CHECK_NOTHROW(arr[7]);
   CHECK(arr[7] == doctest::Approx(0));
-  
+
   arr.Resize(2);
   CHECK(arr[1] == doctest::Approx(6));
   
