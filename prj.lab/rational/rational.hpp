@@ -21,20 +21,18 @@ public:
 
   [[nodiscard]] Rational operator-() const noexcept { return { -num_, den_ }; }
 
-  [[nodiscard]] bool operator==(const Rational& rhs) noexcept { return num_ == rhs.num_ && den_ == rhs.den_; }
-  [[nodiscard]] bool operator==(const int64_t rhs) noexcept { return operator==(Rational(rhs)); }
-  [[nodiscard]] bool operator!=(const Rational& rhs) noexcept { return !(operator==(rhs)); }
-  [[nodiscard]] bool operator!=(const int64_t rhs) noexcept { return operator!=(Rational(rhs)); }
-
-  [[nodiscard]] bool operator<(const Rational& rhs) noexcept { return num_ * rhs.den_ < rhs.num_ * den_; }
-  [[nodiscard]] bool operator<(const int64_t rhs) noexcept { return operator<(Rational(rhs)); }
-  [[nodiscard]] bool operator<=(const Rational& rhs) noexcept { return operator<(rhs) || operator==(rhs); }
-  [[nodiscard]] bool operator<=(const int64_t rhs) noexcept { return operator<=(Rational(rhs)); }
-
-  [[nodiscard]] bool operator>(const Rational& rhs) noexcept { return num_ * rhs.den_ > rhs.num_ * den_; }
-  [[nodiscard]] bool operator>(const int64_t rhs) noexcept { return operator>(Rational(rhs)); }
-  [[nodiscard]] bool operator>=(const Rational& rhs) noexcept { return operator>(rhs) || operator==(rhs); }
-  [[nodiscard]] bool operator>=(const int64_t rhs) noexcept { return operator>=(Rational(rhs)); }
+  [[nodiscard]] bool operator==(const Rational& rhs) noexcept;
+  [[nodiscard]] bool operator==(const int64_t rhs) noexcept;
+  [[nodiscard]] bool operator!=(const Rational& rhs) noexcept;
+  [[nodiscard]] bool operator!=(const int64_t rhs) noexcept;
+  [[nodiscard]] bool operator<(const Rational& rhs) noexcept;
+  [[nodiscard]] bool operator<(const int64_t rhs) noexcept;
+  [[nodiscard]] bool operator<=(const Rational& rhs) noexcept;
+  [[nodiscard]] bool operator<=(const int64_t rhs) noexcept;
+  [[nodiscard]] bool operator>(const Rational& rhs) noexcept;
+  [[nodiscard]] bool operator>(const int64_t rhs) noexcept;
+  [[nodiscard]] bool operator>=(const Rational& rhs) noexcept;
+  [[nodiscard]] bool operator>=(const int64_t rhs) noexcept;
 
   Rational& operator+=(const Rational& rhs) noexcept;
   Rational& operator+=(const int64_t rhs) noexcept { return operator+=(Rational(rhs)); }
@@ -60,12 +58,20 @@ private:
 };
 
 [[nodiscard]] Rational operator+(const Rational& lhs, const Rational& rhs) noexcept;
+[[nodiscard]] Rational operator+(const Rational& lhs, const int64_t rhs) noexcept;
+[[nodiscard]] Rational operator+(const int64_t lhs, const Rational& rhs) noexcept;
 
 [[nodiscard]] Rational operator-(const Rational& lhs, const Rational& rhs) noexcept;
+[[nodiscard]] Rational operator-(const Rational& lhs, const int64_t rhs) noexcept;
+[[nodiscard]] Rational operator-(const int64_t lhs, const Rational& rhs) noexcept;
 
 [[nodiscard]] Rational operator*(const Rational& lhs, const Rational& rhs) noexcept;
+[[nodiscard]] Rational operator*(const Rational& lhs, const int64_t rhs) noexcept;
+[[nodiscard]] Rational operator*(const int64_t lhs, const Rational& rhs) noexcept;
 
 [[nodiscard]] Rational operator/(const Rational& lhs, const Rational& rhs);
+[[nodiscard]] Rational operator/(const Rational& lhs, const int64_t rhs);
+[[nodiscard]] Rational operator/(const int64_t lhs, const Rational& rhs);
 
 inline std::ostream& operator<<(std::ostream& ostrm, const Rational& rhs) noexcept {
   return rhs.WriteTo(ostrm);

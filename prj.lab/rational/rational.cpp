@@ -51,6 +51,53 @@ void Rational::SimplifyFraction() noexcept {
   return;
 }
 
+bool Rational::operator==(const Rational& rhs) noexcept {
+  return num_ == rhs.num_ && den_ == rhs.den_; 
+}
+
+bool Rational::operator!=(const Rational& rhs) noexcept { 
+  return !(operator==(rhs)); 
+}
+
+bool Rational::operator==(const int64_t rhs) noexcept { 
+  return operator==(Rational(rhs)); 
+}
+
+bool Rational::operator!=(const int64_t rhs) noexcept { 
+  return operator!=(Rational(rhs)); 
+}
+
+bool Rational::operator<(const Rational& rhs) noexcept { 
+  return num_ * rhs.den_ < rhs.num_ * den_; 
+}
+
+bool Rational::operator<(const int64_t rhs) noexcept { 
+  return operator<(Rational(rhs)); 
+}
+
+bool Rational::operator<=(const Rational& rhs) noexcept { 
+  return operator<(rhs) || operator==(rhs); 
+}
+
+bool Rational::operator<=(const int64_t rhs) noexcept { 
+  return operator<=(Rational(rhs)); 
+}
+bool Rational::operator>(const Rational& rhs) noexcept { 
+  return num_ * rhs.den_ > rhs.num_ * den_; 
+}
+
+bool Rational::operator>(const int64_t rhs) noexcept { 
+  return operator>(Rational(rhs)); 
+}
+
+bool Rational::operator>=(const Rational& rhs) noexcept { 
+  return operator>(rhs) || operator==(rhs); 
+}
+
+bool Rational::operator>=(const int64_t rhs) noexcept { 
+  return operator>=(Rational(rhs)); 
+}
+
 Rational& Rational::operator+=(const Rational& rhs) noexcept {
   if (den_ != rhs.den_) {
     int64_t least_common_multiple = LeastCommonMultiple(den_, rhs.den_);
@@ -92,10 +139,26 @@ Rational operator+(const Rational& lhs, const Rational& rhs) noexcept {
   return sum;
 }
 
+[[nodiscard]] Rational operator+(const Rational& lhs, const int64_t rhs) noexcept {
+  return lhs + Rational(rhs);
+}
+
+[[nodiscard]] Rational operator+(const int64_t lhs, const Rational& rhs) noexcept {
+  return Rational(lhs) + rhs;
+}
+
 Rational operator-(const Rational& lhs, const Rational& rhs) noexcept {
   Rational sum = lhs;
   sum -= rhs;
   return sum;
+}
+
+[[nodiscard]] Rational operator-(const Rational& lhs, const int64_t rhs) noexcept {
+  return lhs - Rational(rhs);
+}
+
+[[nodiscard]] Rational operator-(const int64_t lhs, const Rational& rhs) noexcept {
+  return Rational(lhs) - rhs;
 }
 
 Rational operator*(const Rational& lhs, const Rational& rhs) noexcept {
@@ -104,10 +167,26 @@ Rational operator*(const Rational& lhs, const Rational& rhs) noexcept {
   return sum;
 }
 
+[[nodiscard]] Rational operator*(const Rational& lhs, const int64_t rhs) noexcept {
+  return lhs * Rational(rhs);
+}
+
+[[nodiscard]] Rational operator*(const int64_t lhs, const Rational& rhs) noexcept {
+  return Rational(lhs) * rhs;
+}
+
 Rational operator/(const Rational& lhs, const Rational& rhs) {
   Rational sum = lhs;
   sum /= rhs;
   return sum;
+}
+
+[[nodiscard]] Rational operator/(const Rational& lhs, const int64_t rhs) {
+  return lhs / Rational(rhs);
+}
+
+[[nodiscard]] Rational operator/(const int64_t lhs, const Rational& rhs) {
+  return Rational(lhs) / rhs;
 }
 
 std::ostream& Rational::WriteTo(std::ostream& ostrm) const noexcept {
