@@ -3,7 +3,7 @@
 #include <iostream>
 #include <sstream>
 
-bool TestParse(const std::string& str) {
+bool TestParse(const std::string& str) noexcept {
   std::istringstream istrm(str);
   Complex z;
   istrm >> z;
@@ -26,93 +26,88 @@ Complex::Complex(double real, double imaginary)
   , im(imaginary) {
 }
 
-Complex Complex::Conjugate() const {
+Complex Complex::Conjugate() const noexcept {
   return Complex(re, -im);
 }
 
-bool Complex::operator==(const Complex& rhs) {
+bool Complex::operator==(const Complex& rhs) noexcept {
   return re == rhs.re && im == rhs.im;
 }
 
-bool Complex::operator!=(const Complex& rhs) {
+bool Complex::operator!=(const Complex& rhs) noexcept {
   return !operator==(rhs);
 }
 
-Complex& Complex::operator+=(const Complex& rhs) {
+Complex& Complex::operator+=(const Complex& rhs) noexcept {
   re += rhs.re;
   im += rhs.im;
   return *this;
 }
 
-Complex& Complex::operator+=(const double rhs) {
+Complex& Complex::operator+=(const double rhs) noexcept {
   re += rhs;
   return *this;
 }
 
-Complex operator+(const Complex& lhs, const Complex& rhs) {
+Complex operator+(const Complex& lhs, const Complex& rhs) noexcept {
   return Complex(lhs.re + rhs.re, lhs.im + rhs.im);
 }
 
-Complex operator+(const Complex& lhs, const double rhs) {
+Complex operator+(const Complex& lhs, const double rhs) noexcept {
   return lhs + Complex(rhs);
 }
 
-Complex operator+(const double lhs, const Complex& rhs) {
+Complex operator+(const double lhs, const Complex& rhs) noexcept {
   return Complex(rhs) + lhs;
 }
 
-Complex& Complex::operator-=(const Complex& rhs) {
+Complex& Complex::operator-=(const Complex& rhs) noexcept {
   re -= rhs.re;
   im -= rhs.im;
   return *this;
 }
 
-Complex& Complex::operator-=(const double rhs) {
+Complex& Complex::operator-=(const double rhs) noexcept {
   re -= rhs;
   return *this;
 }
 
-Complex operator-(const Complex& rhs) {
-  Complex neggative(-rhs.re, -rhs.im);
-  return neggative;
-}
-
-Complex operator-(const Complex& lhs, const Complex& rhs) {
+Complex operator-(const Complex& lhs, const Complex& rhs) noexcept {
   return Complex(lhs.re - rhs.re, lhs.im - rhs.im);
 }
 
-Complex operator-(const Complex& lhs, const double rhs) {
+Complex operator-(const Complex& lhs, const double rhs) noexcept {
   return lhs - Complex(rhs);
 }
 
-Complex operator-(const double lhs, const Complex& rhs) {
+Complex operator-(const double lhs, const Complex& rhs) noexcept {
   return Complex(lhs) - rhs;
 }
 
-Complex& Complex::operator*=(const Complex& rhs) {
+Complex& Complex::operator*=(const Complex& rhs) noexcept {
   double real = re * rhs.re - im * rhs.im;
   im = im * rhs.re + re * rhs.im;
   re = real;
   return *this;
 }
 
-Complex& Complex::operator*=(const double rhs) {
+Complex& Complex::operator*=(const double rhs) noexcept {
   re *= rhs;
   im *= rhs;
   return *this;
 }
 
-Complex operator*(const Complex& lhs, const Complex& rhs) {
+Complex operator*(const Complex& lhs, const Complex& rhs) noexcept {
   Complex product(lhs);
   product *= rhs;
   return product;
 }
 
-Complex operator*(const Complex& lhs, const double rhs) {
+Complex operator*(const Complex& lhs, const double rhs) noexcept {
   return lhs * Complex(rhs);
 }
 
-Complex operator*(const double lhs, const Complex& rhs) {
+Complex operator*(const double lhs, const Complex& rhs) noexcept {
   return Complex(lhs) * rhs;
 }
 
@@ -149,20 +144,24 @@ Complex operator/(const Complex& lhs, const double rhs) {
   return lhs / Complex(rhs);
 }
 
-std::ostream& Complex::WriteToStream(std::ostream& ostrm) const {
-  ostrm << '{' << re << ',' << im << '}';
+Complex operator/(const double lhs, const Complex& rhs) {
+  return Complex(lhs) / rhs;
+}
+
+std::ostream& Complex::WriteToStream(std::ostream& ostrm) const noexcept {
+  ostrm << Complex::leftBrace << re << Complex::separator << im << Complex::rightBrace;
   return ostrm;
 }
 
-std::istream& Complex::ReadFromStream(std::istream& istrm) {
-  char left_brase = '.';
+std::istream& Complex::ReadFromStream(std::istream& istrm) noexcept {
+  char left_brase = 0;
   double real = 0.0;
-  char comma = ',';
+  char comma = 0;
   double imaginary = 0.0;
-  char right_brase = '.';
+  char right_brase = 0;
   istrm >> left_brase >> real >> comma >> imaginary >> right_brase;
   if (istrm.good()) {
-    if (left_brase == '{' && comma == ',' && right_brase == '}') {
+    if (left_brase == Complex::leftBrace && comma == Complex::separator && right_brase == Complex::rightBrace) {
       re = real;
       im = imaginary;
     }
