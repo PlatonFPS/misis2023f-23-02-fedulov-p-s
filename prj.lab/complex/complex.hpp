@@ -5,10 +5,10 @@
 #include <stdexcept>
 
 struct Complex {
-  Complex() = default;
-  explicit Complex(double real);
-  explicit Complex(double real, double imaginary);
-  Complex(const Complex& c) = default;
+  [[nodiscard]] Complex() = default;
+  [[nodiscard]] explicit Complex(double real);
+  [[nodiscard]] explicit Complex(double real, double imaginary);
+  [[nodiscard]] Complex(const Complex& c) = default;
 
   ~Complex() = default;
 

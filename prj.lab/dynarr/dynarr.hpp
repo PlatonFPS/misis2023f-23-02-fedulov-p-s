@@ -6,15 +6,15 @@
 
 class DynArr {
 public:
-  DynArr() = default;
-  explicit DynArr(const DynArr& copy);
-  explicit DynArr(const ptrdiff_t size);
+  [[nodiscard]] DynArr() = default;
+  [[nodiscard]] explicit DynArr(const DynArr& copy);
+  [[nodiscard]] explicit DynArr(const ptrdiff_t size);
   ~DynArr();
 
   void operator=(const DynArr& value);
 
-  [[nodiscard]] std::ptrdiff_t Size() const { return size_; }
-  [[nodiscard]] std::ptrdiff_t Capacity() const { return capacity_; }
+  [[nodiscard]] std::ptrdiff_t Size() const noexcept { return size_; }
+  [[nodiscard]] std::ptrdiff_t Capacity() const noexcept { return capacity_; }
 
   void Resize(const std::ptrdiff_t size);
 
