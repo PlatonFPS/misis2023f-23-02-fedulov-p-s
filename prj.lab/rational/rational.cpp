@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <stdexcept>
 
 int64_t GreatestCommonDiviser(const int64_t lhs, const int64_t rhs) noexcept {
   if (lhs % rhs == 0) {
@@ -51,50 +52,50 @@ void Rational::SimplifyFraction() noexcept {
   return;
 }
 
-bool Rational::operator==(const Rational& rhs) noexcept {
+bool Rational::operator==(const Rational& rhs) const noexcept {
   return num_ == rhs.num_ && den_ == rhs.den_; 
 }
 
-bool Rational::operator!=(const Rational& rhs) noexcept { 
+bool Rational::operator!=(const Rational& rhs) const noexcept { 
   return !(operator==(rhs)); 
 }
 
-bool Rational::operator==(const int64_t rhs) noexcept { 
+bool Rational::operator==(const int64_t rhs) const noexcept { 
   return operator==(Rational(rhs)); 
 }
 
-bool Rational::operator!=(const int64_t rhs) noexcept { 
+bool Rational::operator!=(const int64_t rhs) const noexcept { 
   return operator!=(Rational(rhs)); 
 }
 
-bool Rational::operator<(const Rational& rhs) noexcept { 
+bool Rational::operator<(const Rational& rhs) const noexcept { 
   return num_ * rhs.den_ < rhs.num_ * den_; 
 }
 
-bool Rational::operator<(const int64_t rhs) noexcept { 
+bool Rational::operator<(const int64_t rhs) const noexcept { 
   return operator<(Rational(rhs)); 
 }
 
-bool Rational::operator<=(const Rational& rhs) noexcept { 
+bool Rational::operator<=(const Rational& rhs) const noexcept { 
   return operator<(rhs) || operator==(rhs); 
 }
 
-bool Rational::operator<=(const int64_t rhs) noexcept { 
+bool Rational::operator<=(const int64_t rhs) const noexcept { 
   return operator<=(Rational(rhs)); 
 }
-bool Rational::operator>(const Rational& rhs) noexcept { 
+bool Rational::operator>(const Rational& rhs) const noexcept { 
   return num_ * rhs.den_ > rhs.num_ * den_; 
 }
 
-bool Rational::operator>(const int64_t rhs) noexcept { 
+bool Rational::operator>(const int64_t rhs) const noexcept { 
   return operator>(Rational(rhs)); 
 }
 
-bool Rational::operator>=(const Rational& rhs) noexcept { 
+bool Rational::operator>=(const Rational& rhs) const noexcept { 
   return operator>(rhs) || operator==(rhs); 
 }
 
-bool Rational::operator>=(const int64_t rhs) noexcept { 
+bool Rational::operator>=(const int64_t rhs) const noexcept { 
   return operator>=(Rational(rhs)); 
 }
 

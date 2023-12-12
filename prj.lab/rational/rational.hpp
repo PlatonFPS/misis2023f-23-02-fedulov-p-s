@@ -2,7 +2,6 @@
 #define RATIONAL_HPP
 
 #include <cstdint>
-#include <stdexcept>
 #include <iosfwd>
 
 class Rational {
@@ -21,18 +20,18 @@ public:
 
   [[nodiscard]] Rational operator-() const noexcept { return { -num_, den_ }; }
 
-  [[nodiscard]] bool operator==(const Rational& rhs) noexcept;
-  [[nodiscard]] bool operator==(const int64_t rhs) noexcept;
-  [[nodiscard]] bool operator!=(const Rational& rhs) noexcept;
-  [[nodiscard]] bool operator!=(const int64_t rhs) noexcept;
-  [[nodiscard]] bool operator<(const Rational& rhs) noexcept;
-  [[nodiscard]] bool operator<(const int64_t rhs) noexcept;
-  [[nodiscard]] bool operator<=(const Rational& rhs) noexcept;
-  [[nodiscard]] bool operator<=(const int64_t rhs) noexcept;
-  [[nodiscard]] bool operator>(const Rational& rhs) noexcept;
-  [[nodiscard]] bool operator>(const int64_t rhs) noexcept;
-  [[nodiscard]] bool operator>=(const Rational& rhs) noexcept;
-  [[nodiscard]] bool operator>=(const int64_t rhs) noexcept;
+  [[nodiscard]] bool operator==(const Rational& rhs) const noexcept;
+  [[nodiscard]] bool operator==(const int64_t rhs) const noexcept;
+  [[nodiscard]] bool operator!=(const Rational& rhs) const noexcept;
+  [[nodiscard]] bool operator!=(const int64_t rhs) const noexcept;
+  [[nodiscard]] bool operator<(const Rational& rhs) const noexcept;
+  [[nodiscard]] bool operator<(const int64_t rhs) const noexcept;
+  [[nodiscard]] bool operator<=(const Rational& rhs) const noexcept;
+  [[nodiscard]] bool operator<=(const int64_t rhs) const noexcept;
+  [[nodiscard]] bool operator>(const Rational& rhs) const noexcept;
+  [[nodiscard]] bool operator>(const int64_t rhs) const noexcept;
+  [[nodiscard]] bool operator>=(const Rational& rhs) const noexcept;
+  [[nodiscard]] bool operator>=(const int64_t rhs) const noexcept;
 
   Rational& operator+=(const Rational& rhs) noexcept;
   Rational& operator+=(const int64_t rhs) noexcept { return operator+=(Rational(rhs)); }
