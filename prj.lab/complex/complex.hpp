@@ -6,9 +6,9 @@
 
 struct Complex {
   [[nodiscard]] Complex() = default;
-  [[nodiscard]] explicit Complex(double real);
-  [[nodiscard]] explicit Complex(double real, double imaginary);
-  [[nodiscard]] Complex(const Complex& c) = default;
+  [[nodiscard]] explicit Complex(const double real);
+  [[nodiscard]] explicit Complex(const double real, const double imaginary);
+  [[nodiscard]] Complex(const Complex& copy) = default;
 
   ~Complex() = default;
 

@@ -17,11 +17,11 @@ bool TestParse(const std::string& str) noexcept {
   return istrm.good();
 }
 
-Complex::Complex(double real)
+Complex::Complex(const double real)
   : Complex(real, 0.0) {
 }
 
-Complex::Complex(double real, double imaginary)
+Complex::Complex(const double real, const double imaginary)
   : re(real)
   , im(imaginary) {
 }
