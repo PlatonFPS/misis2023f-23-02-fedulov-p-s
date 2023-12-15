@@ -124,7 +124,7 @@ Rational& Rational::operator*=(const Rational& rhs) noexcept {
 }
 
 Rational& Rational::operator/=(const Rational& rhs) {
-  if (rhs.den_ == 0) {
+  if (rhs.num_ == 0) {
     throw std::invalid_argument("Division by zero is not allowed");
   }
   num_ *= rhs.den_;
@@ -200,7 +200,7 @@ std::istream& Rational::ReadFrom(std::istream& istrm) noexcept {
   char sep = 0;
   int64_t denominator = 1;
   istrm >> number >> sep >> denominator;
-  if (istrm.good()) {
+  if (istrm.good() || istrm.eof()) {
     if (sep == Rational::separator) {
       num_ = number;
       den_ = denominator;
