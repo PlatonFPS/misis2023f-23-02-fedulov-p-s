@@ -1,8 +1,6 @@
-CHECK: 20231215-202800
-OK: file codeforces.id is correct
-OK: folder prj.codeforces structure is correct
-OK: CMake generator successed
-OK: CMake build (MSVC x64) successed
+CHECK: 20231217-152608
 STATUS: lab complex - test-failed
-STATUS: lab rational - test-failed
+STATUS: lab complex_io - test-ok
+STATUS: lab rational - test-ok
+ERROR: lab rational_io - test build failed
 STATUS: lab dynarr - test-failed
