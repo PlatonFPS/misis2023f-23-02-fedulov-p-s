@@ -7,7 +7,7 @@ bool TestParse(const std::string& str) noexcept {
   std::istringstream istrm(str);
   Complex z;
   istrm >> z;
-  if (istrm.good()) {
+  if (istrm.good() || istrm.eof()) {
     std::cout << "Read Success: ";
   }
   else {
@@ -50,15 +50,15 @@ Complex& Complex::operator+=(const double rhs) noexcept {
 }
 
 Complex operator+(const Complex& lhs, const Complex& rhs) noexcept {
-  return Complex(lhs.re + rhs.re, lhs.im + rhs.im);
+  return Complex(lhs) += Complex(rhs);
 }
 
 Complex operator+(const Complex& lhs, const double rhs) noexcept {
-  return lhs + Complex(rhs);
+  return Complex(lhs) += Complex(rhs);
 }
 
 Complex operator+(const double lhs, const Complex& rhs) noexcept {
-  return Complex(rhs) + lhs;
+  return Complex(lhs) += Complex(rhs);
 }
 
 Complex& Complex::operator-=(const Complex& rhs) noexcept {
@@ -73,15 +73,15 @@ Complex& Complex::operator-=(const double rhs) noexcept {
 }
 
 Complex operator-(const Complex& lhs, const Complex& rhs) noexcept {
-  return Complex(lhs.re - rhs.re, lhs.im - rhs.im);
+  return Complex(lhs) -= Complex(rhs);
 }
 
 Complex operator-(const Complex& lhs, const double rhs) noexcept {
-  return lhs - Complex(rhs);
+  return Complex(lhs) -= Complex(rhs);
 }
 
 Complex operator-(const double lhs, const Complex& rhs) noexcept {
-  return Complex(lhs) - rhs;
+  return Complex(lhs) -= Complex(rhs);
 }
 
 Complex& Complex::operator*=(const Complex& rhs) noexcept {
@@ -98,17 +98,15 @@ Complex& Complex::operator*=(const double rhs) noexcept {
 }
 
 Complex operator*(const Complex& lhs, const Complex& rhs) noexcept {
-  Complex product(lhs);
-  product *= rhs;
-  return product;
+  return Complex(lhs) *= Complex(rhs);
 }
 
 Complex operator*(const Complex& lhs, const double rhs) noexcept {
-  return lhs * Complex(rhs);
+  return Complex(lhs) *= Complex(rhs);
 }
 
 Complex operator*(const double lhs, const Complex& rhs) noexcept {
-  return Complex(lhs) * rhs;
+  return Complex(lhs) *= Complex(rhs);
 }
 
 Complex& Complex::operator/=(double rhs) {
@@ -135,17 +133,15 @@ Complex& Complex::operator/=(const Complex& rhs) {
 }
 
 Complex operator/(const Complex& lhs, const Complex& rhs) {
-  Complex quotient = lhs;
-  quotient /= rhs;
-  return quotient;
+  return Complex(lhs) /= Complex(rhs);
 }
 
 Complex operator/(const Complex& lhs, const double rhs) {
-  return lhs / Complex(rhs);
+  return Complex(lhs) /= Complex(rhs);
 }
 
 Complex operator/(const double lhs, const Complex& rhs) {
-  return Complex(lhs) / rhs;
+  return Complex(lhs) /= Complex(rhs);
 }
 
 std::ostream& Complex::WriteToStream(std::ostream& ostrm) const noexcept {

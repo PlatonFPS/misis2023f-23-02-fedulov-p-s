@@ -196,16 +196,22 @@ std::ostream& Rational::WriteTo(std::ostream& ostrm) const noexcept {
 }
 
 std::istream& Rational::ReadFrom(std::istream& istrm) noexcept {
-  int64_t number = 0;
-  char sep = 0;
-  int64_t denominator = 1;
-  istrm >> number >> sep >> denominator;
+  int64_t num(0);
+  char delimiter(0);
+  int64_t den(1);
+  istrm >> num;
+  istrm.get(delimiter);
+  int64_t trash = istrm.peek();
+  istrm >> den;
+  if (!istrm || trash > '9' || trash < '0') {
+    istrm.setstate(std::ios_base::failbit);
+    return istrm;
+  }
   if (istrm.good() || istrm.eof()) {
-    if (sep == Rational::separator) {
-      num_ = number;
-      den_ = denominator;
-      SimplifyFraction();
-    } else {
+    if ('/' == delimiter && den > 0) {
+      *this = Rational(num, den);
+    }
+    else {
       istrm.setstate(std::ios_base::failbit);
     }
   }

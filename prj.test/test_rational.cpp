@@ -4,6 +4,20 @@
 
 #include <iostream>
 
+bool TestParse(const std::string& str) {
+  std::istringstream istrm(str);
+  Rational q;
+  istrm >> q;
+  bool stream_good = !istrm.fail() || (istrm.eof() && !istrm.fail());
+  if (stream_good) {
+    std::cout << "Read success: " << str << " -> " << q << '\n';
+  }
+  else {
+    std::cout << "Read error : " << str << " -> " << q << '\n';
+  }
+  return stream_good;
+}
+
 TEST_CASE("rational constructor") {
   Rational r_def;
   CHECK(0 == r_def.num());
@@ -17,9 +31,12 @@ TEST_CASE("rational constructor") {
 }
 
 TEST_CASE("rational input") {
-  Rational input;
-  std::cout << "Input number in format: number/denominator\n";
-  CHECK((std::cin >> input));
+  CHECK(TestParse("1/0") == false);
+  CHECK(TestParse("1/2"));
+  CHECK(TestParse(" 1/2"));
+  CHECK(TestParse("1/2 "));
+  CHECK(TestParse(" 1/2 "));
+  CHECK(TestParse(" 1 /2 ") == false);
 }
 
 TEST_CASE("rational comparison") {
