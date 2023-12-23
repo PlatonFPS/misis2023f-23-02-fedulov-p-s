@@ -3,6 +3,8 @@
 #include <iostream>
 #include <sstream>
 
+static const double epsilon = 2 * std::numeric_limits<double>::epsilon();
+
 bool TestParse(const std::string& str) noexcept {
   std::istringstream istrm(str);
   Complex z;
@@ -31,7 +33,7 @@ Complex Complex::Conjugate() const noexcept {
 }
 
 bool Complex::operator==(const Complex& rhs) noexcept {
-  return re == rhs.re && im == rhs.im;
+  return (std::abs(re - rhs.re) < epsilon && std::abs(im - rhs.im) < epsilon);
 }
 
 bool Complex::operator!=(const Complex& rhs) noexcept {
@@ -110,7 +112,7 @@ Complex operator*(const double lhs, const Complex& rhs) noexcept {
 }
 
 Complex& Complex::operator/=(double rhs) {
-  if (rhs == 0) {
+  if (std::abs(rhs) < epsilon) {
     throw std::invalid_argument("Division by zero is not allowed");
   }
   re /= rhs;
@@ -119,11 +121,11 @@ Complex& Complex::operator/=(double rhs) {
 }
 
 Complex& Complex::operator/=(const Complex& rhs) {
-  if (rhs.re == 0 && rhs.im == 0) {
+  if (std::abs(rhs.re) < epsilon && std::abs(rhs.im) < epsilon) {
     throw std::invalid_argument("Division by zero is not allowed");
   }
   double denominator = rhs.re * rhs.re + rhs.im * rhs.im;
-  if (denominator != 0) {
+  if (std::abs(denominator) > epsilon) {
     *this *= rhs.Conjugate();
     *this /= denominator;
     return *this;

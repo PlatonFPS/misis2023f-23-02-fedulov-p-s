@@ -16,7 +16,7 @@ struct Complex {
 
   [[nodiscard]] Complex& operator=(const Complex& copy) noexcept = default;
 
-  [[nodiscard]] Complex operator-() const noexcept { return Complex(-im, -re); }
+  [[nodiscard]] Complex operator-() const noexcept { return Complex(-re, -im); }
 
   [[nodiscard]] bool operator==(const Complex& rhs) noexcept;
   [[nodiscard]] bool operator!=(const Complex& rhs) noexcept;
