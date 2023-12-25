@@ -11,7 +11,7 @@ DynArr::DynArr(const DynArr& copy)
 
 DynArr::DynArr(const ptrdiff_t size) {
   if (size <= 0) {
-    throw std::invalid_argument("Non-positive size is not allowed");
+    throw std::invalid_argument("Positive size is required");
   }
   size_ = size;
   capacity_ = size_;
@@ -28,7 +28,7 @@ DynArr::~DynArr() {
 
 void DynArr::Resize(const std::ptrdiff_t size) {
   if (size <= 0) {
-    throw std::invalid_argument("Non-positive size is not allowed");
+    throw std::invalid_argument("Positive size is required");
   } 
   if (capacity_ > size) {
     for (int i_float = size; i_float < size_; i_float += 1) {
