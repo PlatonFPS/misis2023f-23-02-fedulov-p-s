@@ -16,9 +16,7 @@ DynArr::DynArr(const ptrdiff_t size) {
   size_ = size;
   capacity_ = size_;
   data_ = new float[size_];
-  for (int i_float = 0; i_float < size_; i_float += 1) {
-    *(data_ + i_float) = default_value;
-  }
+  std::memset(data_, default_value, sizeof(float) * size_);
 }
 
 DynArr::~DynArr() {
