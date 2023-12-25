@@ -86,6 +86,4 @@ TEST_CASE("DynArr test") {
   CHECK(arr[1] != doctest::Approx(arr4[1]));
   CHECK(arr[1] != doctest::Approx(arr3[1]));
   CHECK(arr4[1] != doctest::Approx(arr3[1]));
-  
-  
 }

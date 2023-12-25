@@ -11,7 +11,7 @@ public:
   [[nodiscard]] explicit DynArr(const ptrdiff_t size);
   ~DynArr();
 
-  void operator=(const DynArr& value);
+  DynArr& operator=(const DynArr& value);
 
   [[nodiscard]] std::ptrdiff_t Size() const noexcept { return size_; }
   [[nodiscard]] std::ptrdiff_t Capacity() const noexcept { return capacity_; }

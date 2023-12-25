@@ -50,12 +50,15 @@ void DynArr::Resize(const std::ptrdiff_t size) {
   return;
 }
 
-void DynArr::operator=(const DynArr& value) {
-  delete[] data_;
-  size_ = value.Size();
-  capacity_ = value.Capacity();
-  data_ = new float[size_];
-  std::memcpy(data_, value.data_, sizeof(float) * size_);
+DynArr& DynArr::operator=(const DynArr& value) {
+  if (this != &value) {
+    delete[] data_;
+    size_ = value.Size();
+    capacity_ = value.Capacity();
+    data_ = new float[size_];
+    std::memcpy(data_, value.data_, sizeof(float) * size_);
+  }
+  return *this;
 }
 
 float& DynArr::operator[](const std::ptrdiff_t index) {
