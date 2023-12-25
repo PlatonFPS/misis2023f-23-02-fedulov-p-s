@@ -1,12 +1,12 @@
 #include "dynarr.hpp"
 
+#include <cstring>
+
 DynArr::DynArr(const DynArr& copy) 
   : size_(copy.Size())
   , capacity_(size_) {
   data_ = new float[size_];
-  for (int i_float = 0; i_float < size_; i_float += 1) {
-    *(data_ + i_float) = copy[i_float];
-  }
+  std::memcpy(data_, copy.data_, sizeof(float) * size_);
 }
 
 DynArr::DynArr(const ptrdiff_t size) {
@@ -57,9 +57,7 @@ void DynArr::operator=(const DynArr& value) {
   size_ = value.Size();
   capacity_ = value.Capacity();
   data_ = new float[size_];
-  for (int i_float = 0; i_float < size_; i_float += 1) {
-    *(data_ + i_float) = value[i_float];
-  }
+  std::memcpy(data_, value.data_, sizeof(float) * size_);
 }
 
 float& DynArr::operator[](const std::ptrdiff_t index) {
