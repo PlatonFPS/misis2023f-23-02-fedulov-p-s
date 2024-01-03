@@ -31,8 +31,10 @@
 *.out
 *.app
 
-# Cmake files
-/out
+# MS Visual Studio Folders
+.vs
+out
 
-# VS files
-/.vs
+# custom build folders
+bin.*
+build.*
